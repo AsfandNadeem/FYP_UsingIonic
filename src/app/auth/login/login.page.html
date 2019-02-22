@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
+    <ion-item>
+      <ion-label>email</ion-label>
+      <ion-input type="email" required [(ngModel)]="email"
+                 ngModel
+                 #emailInput="ngModel"
+                 name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"
+                    ngModel
+                    #passwordInput="ngModel"
+                    name="password"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Login</button>
+  </form>
+
+  <ion-button [expand]="block" [color]="secondary" [href]="register" [routerDirection]="forward"></ion-button>
+</ion-content>
+
+
+<ion-grid>
+  <ion-row justify-content-center>
+    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+      <div text-center>
+        <h4>Login Form</h4>
+      </div>
+
+        <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
+          <div padding>
+        <ion-item>
+
+          <ion-input
+                  type="email" required [(ngModel)]="email"
+                  ngModel
+                  #emailInput="ngModel"
+                  name="email" [placeholder]="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+                  type="password" [(ngModel)]="password"
+                  ngModel
+                  #passwordInput="ngModel"
+                  name="password" [placeholder]="password"></ion-input>
+        </ion-item>
+      </div>
+          <ion-button type="submit" size="large" expand="block">Login</ion-button>
+      </form>
+      <!--<div padding>-->
+        <!--<ion-button size="large" href="/touchid" expand="block">Login</ion-button>-->
+      <!--</div>-->
+    </ion-col>
+  </ion-row>
+</ion-grid>
