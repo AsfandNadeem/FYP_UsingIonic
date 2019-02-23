@@ -17,10 +17,16 @@ export class MenuPage implements OnInit {
         {
             title: 'Groups',
             url: '/menu/menu/group'
+        },
+        {
+            title: 'Events',
+            url: '/menu/menu/event'
         }
     ];
 
     selectedPath = '';
+    profileimg: string;
+    username = '';
 
     constructor(private router: Router, private authService: AuthServiceService) {
         this.router.events.subscribe((event: RouterEvent) => {
@@ -29,6 +35,8 @@ export class MenuPage implements OnInit {
     }
 
   ngOnInit() {
+        this.profileimg = localStorage.getItem('profileimg');
+        this.username = localStorage.getItem('username');
       this.router.navigate(['/menu/menu/post']);
   }
 

@@ -35,6 +35,10 @@ export class AuthServiceService {
             });
     }
 
+    getName() {
+        return localStorage.getItem('username');
+    }
+
     login(email: string, password: string) {
         // const authData: AuthData = {email: email, password: password};
         this.http.post<{token: string, expiresIn: number, userId: string, username: string, department: string, profileimg: string}>(

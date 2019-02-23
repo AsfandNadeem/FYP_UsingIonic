@@ -19,6 +19,10 @@ const routes: Routes = [
           {
               path: 'group',
               loadChildren: '../group/group.module#GroupPageModule'
+          },
+          {
+              path: 'event',
+              loadChildren: '../event/event.module#EventPageModule'
           }
       ]
   },

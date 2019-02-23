@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Post} from './post.model';
 import {Subscription} from 'rxjs';
 import {PostsService} from './posts.service';
@@ -9,7 +9,7 @@ import {AuthServiceService} from '../auth/auth-service.service';
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
 })
-export class PostPage implements OnInit {
+export class PostPage implements OnInit, OnDestroy {
 
     posts: Post[] = [];
     isLoading = false;
@@ -51,5 +51,10 @@ export class PostPage implements OnInit {
               this.userId = this.authService.getUserId();
           });
   }
+
+    ngOnDestroy() {
+        this.postsSub.unsubscribe();
+        this.authStatusSub.unsubscribe();
+    }
 
 }

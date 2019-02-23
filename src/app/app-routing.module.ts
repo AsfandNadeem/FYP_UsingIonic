@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './auth/register/register.module#RegisterPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule', canActivate: [AuthGuardService] },
+  // { path: 'event', loadChildren: './event/event.module#EventPageModule' },
   // { path: 'post', loadChildren: './post/post.module#PostPageModule' },
   // { path: 'group', loadChildren: './group/group.module#GroupPageModule' },
 ];

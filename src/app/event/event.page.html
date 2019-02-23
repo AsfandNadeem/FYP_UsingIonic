@@ -7,29 +7,29 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let group of groups">
+  <ion-card *ngFor="let event of events">
 
     <ion-card-header>
       <ion-list style="list-style: none; display: flex;">
         <ion-item lines="none">
           <!--<ion-avatar slot="start">-->
-            <!--<img [src]= "post.profileimg">-->
+          <!--<img [src]= "post.profileimg">-->
           <!--</ion-avatar>-->
         </ion-item>
         <ion-item>
-          <ion-card-title>{{group.username}}</ion-card-title>
+          <ion-card-title>{{event.username}}</ion-card-title>
         </ion-item>
 
         <ion-item>
-          <ion-card-subtitle>{{ group.groupname }}</ion-card-subtitle>
+          <ion-card-subtitle>{{ event.eventname }}</ion-card-subtitle>
         </ion-item>
       </ion-list>
     </ion-card-header>
     <!--<img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >-->
     <ion-card-content>
-      <strong>{{group.description}}</strong>
+      <strong>{{event.description}}</strong>
       <br/>
-      <!--<strong>Date: </strong>{{ post.createdAt | date:'MMM dd, yyyy' }}-->
+      <strong>Event Date: </strong>{{ event.eventdate | date:'MMM dd, yyyy' }}
     </ion-card-content>
   </ion-card>
 </ion-content>
