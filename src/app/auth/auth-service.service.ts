@@ -15,7 +15,25 @@ export class AuthServiceService {
     private userId: string;
     private userN: string;
     private authStatusListener = new Subject<boolean>();
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
+
+    createUser(email: string, image: File, password: string , username: string, department: string, registration: string ) {
+        // const authData: {email: email, password: password};
+        const userData =  new FormData();
+        userData.append('email', email);
+        userData.append('password', password);
+        userData.append('username', username);
+        userData.append('image', image, email);
+        userData.append( 'department', department);
+        userData.append('registration', registration);
+        console.log(userData);
+        this.http.post('http://localhost:3000/api/user/signup', userData)
+            .subscribe(response => {
+                console.log(response);
+                this.router.navigate(['/login']);
+            });
+    }
 
     login(email: string, password: string) {
         // const authData: AuthData = {email: email, password: password};

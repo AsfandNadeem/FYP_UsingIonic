@@ -1,5 +1,7 @@
 {
   "name": "comsats_social_mobile",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

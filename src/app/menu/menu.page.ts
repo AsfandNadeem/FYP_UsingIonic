@@ -29,6 +29,7 @@ export class MenuPage implements OnInit {
     }
 
   ngOnInit() {
+      this.router.navigate(['/menu/menu/post']);
   }
 
   logout() {

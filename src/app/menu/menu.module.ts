@@ -23,7 +23,7 @@ const routes: Routes = [
       ]
   },
     {
-      path: 'menu',
+      path: '',
         redirectTo: '/menu/post'
     }
 ];
