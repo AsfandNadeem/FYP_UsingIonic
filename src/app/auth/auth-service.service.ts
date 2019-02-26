@@ -42,7 +42,7 @@ export class AuthServiceService {
     login(email: string, password: string) {
         // const authData: AuthData = {email: email, password: password};
         this.http.post<{token: string, expiresIn: number, userId: string, username: string, department: string, profileimg: string}>(
-            'http://localhost:3000/api/user/login',
+            'http://192.168.10.7:3000/api/user/login',
             {email, password})
             .subscribe( response => {
                 const token = response.token;

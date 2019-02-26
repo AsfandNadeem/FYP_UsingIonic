@@ -19,7 +19,7 @@ export class PostsService {
     // const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
    this.http
      .get<{message: string, posts: any,  username: string, maxPosts: number}>(
-       'http://localhost:3000/api/posts'
+       'http://192.168.10.7:3000/api/posts'
      )
      .pipe(map((postData) => {
        return { posts: postData.posts.map(post => {
@@ -65,7 +65,7 @@ export class PostsService {
     // console.log(postData);
    return this.http
       .post<{ message: string, post: Post }>(
-        'http://localhost:3000/api/posts/postmobile',
+        'http://192.168.10.7:3000/api/posts/postmobile',
           {title, content, category});
        }
 

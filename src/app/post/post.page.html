@@ -53,59 +53,7 @@
             </ion-col></ion-row>
     </ion-card>
 
-                <!--<ion-input-->
-                        <!--type="text"-->
-                        <!--required-->
-                        <!--[(ngModel)]="title"-->
-                        <!--ngModel-->
-                        <!--#titleInput="ngModel"-->
-                        <!--name="title"-->
-                        <!--[placeholder]="Title">-->
 
-                <!--&lt;!&ndash;<mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<button mat-stroked-button type="button" (click)="filepicker.click()" >Add Image</button>&ndash;&gt;-->
-                <!--&lt;!&ndash;<input type="file" #filepicker (change)="onImagePicked($event)">&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">&ndash;&gt;-->
-                <!--&lt;!&ndash;<img [src]="imagePreview" [alt]="form.value.title">&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
-      <!--<ion-input-->
-              <!--type="text"-->
-              <!--rows="4"-->
-              <!--required-->
-              <!--[(ngModel)]="content"-->
-              <!--ngModel-->
-              <!--#contentInput="ngModel"-->
-              <!--name="content"-->
-              <!--placeholder="Post Content"-->
-      <!--&gt;</ion-input>-->
-                <!--&lt;!&ndash;<mat-error *ngIf="form.get('content').invalid">Please enter a post title.</mat-error>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-            <!--<br/>-->
-            <!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
-                <!--<ion-select-->
-                        <!--required-->
-                        <!--[(ngModel)]="cname"-->
-                        <!--ngModel-->
-                        <!--placeholder="Category"-->
-                        <!--#cnameInput = "ngModel"-->
-                        <!--name = "cname">-->
-
-                    <!--<ion-option *ngFor="let category of categories" [value]="category">-->
-                        <!--{{category}}-->
-                    <!--</ion-option>-->
-
-                <!--</ion-select>-->
-                <!--&lt;!&ndash;<mat-error *ngIf="form.get('cname').invalid">Please choose a Category</mat-error>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-
-
-        <!--</form>-->
-    <!--</ion-card>-->
     <ion-card *ngFor="let post of posts">
 
         <ion-card-header>
@@ -126,7 +74,7 @@
             </ion-list>
         </ion-card-header>
         <!--<img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >-->
-        <!--<img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '192.168.10.7')" [alt]="post.title" >-->
+        <img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '192.168.10.7')" [alt]="post.title" >
         <ion-card-content>
             <strong>{{post.content}}</strong>
             <br/>

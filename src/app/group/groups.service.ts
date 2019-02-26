@@ -56,7 +56,7 @@ export class GroupsService {
     // const queryParams = `?pagesize=${groupsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
    this.http
      .get<{message: string, groups: any,  username: string, maxGroups: number}>(
-       'http://localhost:3000/api/groups')
+       'http://192.168.10.7:3000/api/groups')
      .pipe(map((groupData) => {
        return { groups: groupData.groups.map(group => {
          return {
@@ -121,7 +121,7 @@ export class GroupsService {
   addGroup(groupname: string,  category: string, description: string, username: string) {
     return this.http
       .post(
-        'http://localhost:3000/api/groups',
+        'http://192.168.10.7:3000/api/groups',
         {groupname, description, category, username});
   }
 

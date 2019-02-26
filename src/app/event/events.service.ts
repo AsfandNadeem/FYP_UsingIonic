@@ -56,7 +56,7 @@ export class EventsService {
     // const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
     this.http
       .get<{message: string, events: any,  username: string, maxEvents: number}>(
-        'http://localhost:3000/api/events')
+        'http://192.168.10.7:3000/api/events')
       .pipe(map((eventData) => {
         return { events: eventData.events.map(event => {
             return {
@@ -115,7 +115,7 @@ export class EventsService {
   addEvent(eventname: string,  category: string, description: string, eventdate: Date, username: string) {
     return this.http
       .post(
-        'http://localhost:3000/api/events',
+        'http://192.168.10.7:3000/api/events',
         {eventname, description, category, eventdate, username});
   }
 

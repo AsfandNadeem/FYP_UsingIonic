@@ -1,74 +1,74 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!--<ion-header>-->
+  <!--<ion-toolbar>-->
+    <!--<ion-title>Register</ion-title>-->
+  <!--</ion-toolbar>-->
+<!--</ion-header>-->
 
-<ion-content padding>
+<!--<ion-content padding>-->
 
-  <form [formGroup]="nform" >
-    <div>
-      <button mat-stroked-button type="button" (click)="filepicker.click()" >Add Image</button>
-      <input type="file" #filepicker (change)="onImagePicked($event)">
-    </div>
-    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && nform.get('image').valid">
-      <img [src]="imagePreview" [alt]="nform.value.title">
-    </div>
-  </form>
+  <!--<form [formGroup]="nform" >-->
+    <!--<div>-->
+      <!--<button mat-stroked-button type="button" (click)="filepicker.click()" >Add Image</button>-->
+      <!--<input type="file" #filepicker (change)="onImagePicked($event)">-->
+    <!--</div>-->
+    <!--<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && nform.get('image').valid">-->
+      <!--<img [src]="imagePreview" [alt]="nform.value.title">-->
+    <!--</div>-->
+  <!--</form>-->
 
-  <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
-    <ion-item>
-      <ion-label>email</ion-label>
-      <ion-input type="email" required [(ngModel)]="email"
-                 ngModel
-                 #emailInput="ngModel"
-                 name="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"
-                 ngModel
-                 #passwordInput="ngModel"
-                 name="password"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" block>Login</button>
-  </form>
+  <!--<form #form="ngForm" (ngSubmit)="login(form)" novalidate>-->
+    <!--<ion-item>-->
+      <!--<ion-label>email</ion-label>-->
+      <!--<ion-input type="email" required [(ngModel)]="email"-->
+                 <!--ngModel-->
+                 <!--#emailInput="ngModel"-->
+                 <!--name="email"></ion-input>-->
+    <!--</ion-item>-->
+    <!--<ion-item>-->
+      <!--<ion-label>Password</ion-label>-->
+      <!--<ion-input type="password" [(ngModel)]="password"-->
+                 <!--ngModel-->
+                 <!--#passwordInput="ngModel"-->
+                 <!--name="password"></ion-input>-->
+    <!--</ion-item>-->
+    <!--<button ion-button type="submit" block>Login</button>-->
+  <!--</form>-->
 
-  <ion-button [expand]="block" [color]="secondary" [href]="register" [routerDirection]="forward"></ion-button>
-</ion-content>
+  <!--<ion-button [expand]="block" [color]="secondary" [href]="register" [routerDirection]="forward"></ion-button>-->
+<!--</ion-content>-->
 
 
-<ion-grid>
-  <ion-row justify-content-center>
-    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-      <div text-center>
-        <h4>Login Form</h4>
-      </div>
-
-      <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
-        <div padding>
-          <ion-item>
-
-            <ion-input
-                    type="email" required [(ngModel)]="email"
-                    ngModel
-                    #emailInput="ngModel"
-                    name="email" [placeholder]="email"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input
-                    type="password" [(ngModel)]="password"
-                    ngModel
-                    #passwordInput="ngModel"
-                    name="password" [placeholder]="password"></ion-input>
-          </ion-item>
-        </div>
-        <ion-button type="submit" size="large" expand="block">Login</ion-button>
-      </form>
-      <!--<div padding>-->
-      <!--<ion-button size="large" href="/touchid" expand="block">Login</ion-button>-->
+<!--<ion-grid>-->
+  <!--<ion-row justify-content-center>-->
+    <!--<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">-->
+      <!--<div text-center>-->
+        <!--<h4>Login Form</h4>-->
       <!--</div>-->
-    </ion-col>
-  </ion-row>
-</ion-grid>
+
+      <!--<form #form="ngForm" (ngSubmit)="login(form)" novalidate>-->
+        <!--<div padding>-->
+          <!--<ion-item>-->
+
+            <!--<ion-input-->
+                    <!--type="email" required [(ngModel)]="email"-->
+                    <!--ngModel-->
+                    <!--#emailInput="ngModel"-->
+                    <!--name="email" [placeholder]="email"></ion-input>-->
+          <!--</ion-item>-->
+
+          <!--<ion-item>-->
+            <!--<ion-input-->
+                    <!--type="password" [(ngModel)]="password"-->
+                    <!--ngModel-->
+                    <!--#passwordInput="ngModel"-->
+                    <!--name="password" [placeholder]="password"></ion-input>-->
+          <!--</ion-item>-->
+        <!--</div>-->
+        <!--<ion-button type="submit" size="large" expand="block">Login</ion-button>-->
+      <!--</form>-->
+      <!--&lt;!&ndash;<div padding>&ndash;&gt;-->
+      <!--&lt;!&ndash;<ion-button size="large" href="/touchid" expand="block">Login</ion-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+<!--</ion-grid>-->
