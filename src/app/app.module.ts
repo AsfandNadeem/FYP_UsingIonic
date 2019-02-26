@@ -14,17 +14,19 @@ import { AppRoutingModule } from './app-routing.module';
 import {AuthServiceService} from './auth/auth-service.service';
 import {IonicStorageModule} from '@ionic/Storage';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthInterceptor} from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
       AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-      IonicStorageModule.forRoot(), HttpClientModule, FormsModule, ReactiveFormsModule],
+      IonicStorageModule.forRoot(),  HttpClientModule, FormsModule, ReactiveFormsModule ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy,  useClass: IonicRouteStrategy },
+      {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
       AuthServiceService
   ],
   bootstrap: [AppComponent]

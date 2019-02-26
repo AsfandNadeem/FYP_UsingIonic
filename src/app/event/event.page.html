@@ -7,6 +7,65 @@
 </ion-header>
 
 <ion-content padding>
+
+  <ion-card>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <form #form="ngForm" novalidate (ngSubmit)="onSaveEvent(form)" >
+
+          <ion-input
+                  type="text"
+                  required
+                  [(ngModel)]="name"
+                  ngModel
+                  #titleInput="ngModel"
+                  name="name"
+                  placeholder="Name">
+          </ion-input>
+
+          <ion-input
+                  type="text"
+                  rows="4"
+                  required
+                  [(ngModel)]="description"
+                  ngModel
+                  #contentInput="ngModel"
+                  name="description"
+                  placeholder="Event Description"
+          ></ion-input>
+
+
+          <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime
+                    required
+                    [(ngModel)]="eventdate"
+                    ngModel
+                    #eventdateInput="ngModel"
+                    name="eventdate"
+                    display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-select
+                  required
+                  [(ngModel)]="cname"
+                  ngModel
+                  placeholder="Category"
+                  #cnameInput = "ngModel"
+                  name = "cname">
+
+            <ion-select-option *ngFor="let category of categories" [value]="category">
+              {{category}}
+            </ion-select-option>
+
+          </ion-select>
+
+          <ion-button
+                  type="submit">Save Event</ion-button>
+        </form>
+      </ion-col></ion-row>
+  </ion-card>
+
   <ion-card *ngFor="let event of events">
 
     <ion-card-header>

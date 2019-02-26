@@ -54,23 +54,20 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(title: string, content: string , image: File, category: string) {
-    const postData =  new FormData();
-    postData.append('title', title);
-      postData.append('content', content);
-    postData.append('image', image, title);
-    postData.append( 'category', category);
+  addPost(title: string, content: string , category: string) {
+    // const postData =  new FormData();
+    // postData.append('title', title);
+    //   postData.append('content', content);
+    // // postData.append('image', image, title);
+    // postData.append( 'category', category);
     // postData.append('username', localStorage.getItem('username'));
     // postData.append('profileimg', profileimg);
-    console.log(postData);
-    this.http
+    // console.log(postData);
+   return this.http
       .post<{ message: string, post: Post }>(
-        'http://localhost:3000/api/posts',
-        postData)
-      .subscribe( responseData  => {
-        this.router.navigate(['/messages']);
-      });
-  }
+        'http://localhost:3000/api/posts/postmobile',
+          {title, content, category});
+       }
 
   getPost(id: string) {
     return this.http.get<{

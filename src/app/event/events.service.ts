@@ -116,11 +116,9 @@ export class EventsService {
     return this.http
       .post(
         'http://localhost:3000/api/events',
-        {eventname, description, category, eventdate, username})
-      .subscribe( responseData  => {
-        this.router.navigate(['/eventlist']);
-      });
+        {eventname, description, category, eventdate, username});
   }
+
 
   addPost(id: string, title: string, content: string , image: File) {
     const postData =  new FormData();

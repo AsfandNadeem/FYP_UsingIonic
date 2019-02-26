@@ -3,6 +3,7 @@ import { Group } from './group.model';
 import { GroupsService } from './groups.service';
 import { AuthServiceService } from '../auth/auth-service.service';
 import {Subscription} from 'rxjs';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-group',
@@ -21,6 +22,7 @@ export class GroupPage implements OnInit, OnDestroy {
     userIsAuthenticated = false;
     private groupsSub: Subscription;
     private authStatusSub: Subscription;
+    categories = ['General', localStorage.getItem('department')];
   constructor(public groupsService: GroupsService, private authService: AuthServiceService) { }
 
   ngOnInit() {
@@ -44,6 +46,16 @@ export class GroupPage implements OnInit, OnDestroy {
               this.userId = this.authService.getUserId();
           });
   }
+
+
+    onSaveGroup(form: NgForm) {
+        console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
+        this.groupsService.addGroup(form.value.name, form.value.cname,
+            form.value.description, localStorage.getItem('username')).subscribe( () => {
+            this.groupsService.getGroups();
+        });
+        form.reset();
+    }
 
     ngOnDestroy() {
         this.groupsSub.unsubscribe();

@@ -1,0 +1,15 @@
+$white-color: #fff;
+$height100: 100%;
+
+ion-row {
+  height: $height100;
+}
+
+ion-col {
+  border: 1px solid #488aff;
+  background: $white-color;
+}
+
+ion-button {
+  font-weight: 300;
+}

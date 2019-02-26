@@ -122,10 +122,7 @@ export class GroupsService {
     return this.http
       .post(
         'http://localhost:3000/api/groups',
-        {groupname, description, category, username})
-      .subscribe( responseData  => {
-        this.router.navigate(['/grouplist']);
-      });
+        {groupname, description, category, username});
   }
 
   addPost(id: string, title: string, content: string , image: File) {

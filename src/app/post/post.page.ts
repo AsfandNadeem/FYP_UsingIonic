@@ -3,6 +3,7 @@ import {Post} from './post.model';
 import {Subscription} from 'rxjs';
 import {PostsService} from './posts.service';
 import {AuthServiceService} from '../auth/auth-service.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -24,6 +25,7 @@ export class PostPage implements OnInit, OnDestroy {
     userIsAuthenticated = false;
     private postsSub: Subscription;
     private authStatusSub: Subscription;
+    categories = ['General', localStorage.getItem('department')];
 
   constructor(public postsService: PostsService, private authService: AuthServiceService) { }
 
@@ -51,6 +53,14 @@ export class PostPage implements OnInit, OnDestroy {
               this.userId = this.authService.getUserId();
           });
   }
+
+    onSavePost(form: NgForm) {
+        console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
+        this.postsService.addPost(form.value.title, form.value.content, form.value.cname).subscribe( () => {
+            this.postsService.getPosts();
+        });
+        form.reset();
+    }
 
     ngOnDestroy() {
         this.postsSub.unsubscribe();

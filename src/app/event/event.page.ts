@@ -3,6 +3,7 @@ import {EventsService} from './events.service';
 import {AuthServiceService} from '../auth/auth-service.service';
 import {Events} from './event.model';
 import {Subscription} from 'rxjs';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class EventPage implements OnInit, OnDestroy {
     userIsAuthenticated = false;
     private eventsSub: Subscription;
     private authStatusSub: Subscription;
-
+    categories = ['General', localStorage.getItem('department')];
   constructor(public eventsService: EventsService,
               private authService: AuthServiceService) { }
 
@@ -43,6 +44,16 @@ export class EventPage implements OnInit, OnDestroy {
               this.userId = this.authService.getUserId();
           });
   }
+
+    onSaveEvent(form: NgForm) {
+        console.log(form.value.title + ' ' + form.value.content + ' '
+            + form.value.cname + ' ' + form.value.eventdate );
+        this.eventsService.addEvent(form.value.name, form.value.cname,
+            form.value.description, form.value.eventdate, localStorage.getItem('username')).subscribe( () => {
+            this.eventsService.getEvents();
+        });
+        form.reset();
+    }
 
     ngOnDestroy() {
         this.eventsSub.unsubscribe();
