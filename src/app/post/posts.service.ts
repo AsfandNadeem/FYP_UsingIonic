@@ -19,24 +19,26 @@ export class PostsService {
     // const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
    this.http
      .get<{message: string, posts: any,  username: string, maxPosts: number}>(
-       'http://192.168.10.7:3000/api/posts'
+       'http://localhost:3000/api/posts'
      )
      .pipe(map((postData) => {
        return { posts: postData.posts.map(post => {
          return {
-           profileimg: post.profileimg,
-           title: post.title,
-           content: post.content,
-           id: post._id,
-           username : post.username,
-           creator: post.creator,
-           likes: post.likes,
-           category: post.category,
-           commentsNo: post.commentsNo,
-           comments: post.comments,
-           dislikes: post.dislikes,
-           createdAt: post.createdAt,
-           imagePath: post.imagePath
+             profileimg: post.profileimg,
+             title: post.title,
+             content: post.content,
+             id: post._id,
+             username : post.username,
+             creator: post.creator,
+             likes: post.likes,
+             likedBy: post.likedBy,
+             dislikedBy: post.dislikedBy,
+             category: post.category,
+             commentsNo: post.commentsNo,
+             comments: post.comments,
+             dislikes: post.dislikes,
+             createdAt: post.createdAt,
+             imagePath: post.imagePath
          };
        }), maxPosts: postData.maxPosts  };
     }))// change rterieving data
@@ -65,7 +67,7 @@ export class PostsService {
     // console.log(postData);
    return this.http
       .post<{ message: string, post: Post }>(
-        'http://192.168.10.7:3000/api/posts/postmobile',
+        'http://localhost:3000/api/posts/postmobile',
           {title, content, category});
        }
 
@@ -92,18 +94,21 @@ export class PostsService {
       postData.append('image', image, title);
     } else {
        postData = {
-        id: id,
-        title: title,
-        content: content,
-         category: null,
-         creator: null,
-         likes: null,
-         dislikes: null,
-         comments: null,
-         commentsNo: null,
-         createdAt: null,
-         username: localStorage.getItem('username'),
-        imagePath: image
+           id: id,
+           title: title,
+           content: content,
+           category: null,
+           creator: null,
+           likes: null,
+           likedBy: null,
+           profileimg: null,
+           dislikedBy: null,
+           dislikes: null,
+           comments: null,
+           commentsNo: null,
+           createdAt: null,
+           username: localStorage.getItem('username'),
+           imagePath: image
       };
 
     }

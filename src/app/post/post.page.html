@@ -60,8 +60,8 @@
             <ion-list style="list-style: none; display: flex;">
                 <ion-item lines="none">
                     <ion-avatar slot="start">
-                        <!--<img [src]= "post.profileimg">-->
-                        <img [src]= "post.profileimg.replace('localhost', '192.168.10.7')">
+                        <img [src]= "post.profileimg">
+                        <!--<img [src]= "post.profileimg.replace('localhost', '10.113.4.28')">-->
                     </ion-avatar>
                 </ion-item>
                 <ion-item>
@@ -73,12 +73,114 @@
            </ion-item>
             </ion-list>
         </ion-card-header>
-        <!--<img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >-->
-        <img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '192.168.10.7')" [alt]="post.title" >
+        <img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >
+        <!--<img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '10.113.4.28')" [alt]="post.title" >-->
         <ion-card-content>
             <strong>{{post.content}}</strong>
             <br/>
             <strong>Date: </strong>{{ post.createdAt | date:'MMM dd, yyyy' }}
+            <!--<ion-button style="background-color: white;" (click)="likePost(post.id,post)" >-->
+                <ion-icon name="thumbs-up" *ngIf="post.likedBy.includes(userId)" color="primary" (click)="likePost(post.id)"></ion-icon>
+                <!--<mat-icon *ngIf="post.likedBy.includes(userId)" color="primary" >thumb_up</mat-icon>-->
+                <ion-icon name="thumbs-up" *ngIf="!post.likedBy.includes(userId)" (click)="likePost(post.id)" ></ion-icon>
+                {{ post.likes }}
+            <!--</ion-button>-->
+
+
+
+            <ion-icon name="thumbs-down" *ngIf="post.dislikedBy.includes(userId)" color="primary" (click)="dislikePost(post.id)"></ion-icon>
+            <!--<mat-icon *ngIf="post.likedBy.includes(userId)" color="primary" >thumb_up</mat-icon>-->
+            <ion-icon name="thumbs-down" *ngIf="!post.dislikedBy.includes(userId)"  (click)="dislikePost(post.id)"></ion-icon>
+            {{ post.dislikes }}
+            <!--<ion-button  (click)="dislikePost(post.id)" >-->
+                <!--<mat-icon *ngIf="post.dislikedBy.includes(userId)" color="primary" >thumb_down</mat-icon>-->
+                <!--<mat-icon *ngIf="!post.dislikedBy.includes(userId)"  >thumb_down</mat-icon>-->
+                <!--{{ post.dislikes }}-->
+            <!--</ion-button>-->
+            <!--<mat-accordion class="example-headers-align" >-->
+                <!--<mat-expansion-panel  [class.mat-expansion-panel]="false" hideToggle>-->
+                    <!--<mat-expansion-panel-header>-->
+                        <!--<mat-panel-title>-->
+
+                           <ion-icon name="list-box"></ion-icon>
+                            {{ post.commentsNo }}
+
+                        <!--</mat-panel-title>-->
+
+                    <!--</mat-expansion-panel-header>-->
+
+                    <ion-list class="commentspanel" style="list-style: none; display: flex;">
+                        <ion-item lines="none" >
+                            <ion-input
+                                    type="text"
+                                    required
+                                    [(ngModel)]="comment"
+                                    ngModel
+                                    #commentInput="ngModel"
+                                    name="comment"
+                                    placeholder="Comment">
+                            </ion-input>
+                            <!--<mat-form-field style="width:700px; !important; " >-->
+                                <!--<ion-input-->
+                                        <!--type="text"-->
+                                        <!--placeholder="Add a Comment"-->
+                                        <!--ngModel-->
+                                        <!--[[ngModel)]="comment"-->
+                                        <!--#commentInput="ngModel"-->
+                                        <!--required-->
+                                <!--name="comment"></ion-input>-->
+                                <!--<mat-error *ngIf="commentInput.invalid">Please enter a comment.</mat-error>-->
+
+                            <!--</mat-form-field>-->
+                        </ion-item>
+                        <ion-item lines="none">
+                            <!--<button (click)="addComment(post.id,commentInput.value)">-->
+                                <ion-icon name="send" ></ion-icon>
+                            <!--</button>-->
+                        </ion-item>
+                    </ion-list>
+
+                    <ion-list style="list-style: none;">
+                        <ion-item *ngFor="let comment of post.comments" style="margin:0;">
+                            <strong>{{comment.commentator}}: &nbsp; </strong>
+
+                            <p>
+                                {{comment.comment}}
+                            </p>
+                            <!--<ion-item-divider></ion-item-divider>-->
+                        </ion-item>
+
+                    </ion-list>
+
+                    <!--<mat-card class="example-card" style="width:80% !important;" *ngFor="let comment of post.comments">-->
+
+
+                    <!--<mat-card-content>-->
+                    <!--<strong>{{comment.commentator}}</strong>-->
+                    <!--<br/>-->
+                    <!--<p>-->
+                    <!--{{comment.comment}}-->
+                    <!--</p>-->
+                    <!--</mat-card-content>-->
+
+                    <!--</mat-card>-->
+
+
+
+
+
+
+
+                <!--</mat-expansion-panel>-->
+
+
+
+
+
+
+            <!--</mat-accordion>-->
+
+
         </ion-card-content>
     </ion-card>
 </ion-content>

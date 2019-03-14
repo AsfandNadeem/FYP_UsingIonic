@@ -43,7 +43,7 @@ export class PostPage implements OnInit, OnDestroy {
               this.totalPosts = postData.postCount;
               // this.username = this.authService.getName();
               this.posts = postData.posts;
-              console.log(this.posts);
+              // console.log(this.posts);
           });
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService
@@ -55,7 +55,7 @@ export class PostPage implements OnInit, OnDestroy {
   }
 
     onSavePost(form: NgForm) {
-        console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
+        // console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
         this.postsService.addPost(form.value.title, form.value.content, form.value.cname).subscribe( () => {
             this.postsService.getPosts();
         });
@@ -66,5 +66,21 @@ export class PostPage implements OnInit, OnDestroy {
         this.postsSub.unsubscribe();
         this.authStatusSub.unsubscribe();
     }
+
+    likePost(id: string) {
+        this.postsService.likePost(id).subscribe( () => {
+            // this.socket.emit('refresh', {});
+            this.postsService.getPosts();
+        });
+    }
+
+    dislikePost(id: string) {
+        this.postsService.dislikePost(id).subscribe( () => {
+            // this.socket.emit('refresh', {});
+            this.postsService.getPosts();
+        });
+
+    }
+
 
 }

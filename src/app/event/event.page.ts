@@ -34,7 +34,7 @@ export class EventPage implements OnInit, OnDestroy {
               // this.totalEvents = eventData.eventCount;
               this.username = this.authService.getName();
               this.events = eventData.events;
-              console.log(this.events);
+              // console.log(this.events);
           });
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService
@@ -46,8 +46,8 @@ export class EventPage implements OnInit, OnDestroy {
   }
 
     onSaveEvent(form: NgForm) {
-        console.log(form.value.title + ' ' + form.value.content + ' '
-            + form.value.cname + ' ' + form.value.eventdate );
+        // console.log(form.value.title + ' ' + form.value.content + ' '
+        //     + form.value.cname + ' ' + form.value.eventdate );
         this.eventsService.addEvent(form.value.name, form.value.cname,
             form.value.description, form.value.eventdate, localStorage.getItem('username')).subscribe( () => {
             this.eventsService.getEvents();
@@ -59,5 +59,7 @@ export class EventPage implements OnInit, OnDestroy {
         this.eventsSub.unsubscribe();
         this.authStatusSub.unsubscribe();
     }
-
+    onJoin(id: string) {
+        this.eventsService.joinEvent(id);
+    }
 }

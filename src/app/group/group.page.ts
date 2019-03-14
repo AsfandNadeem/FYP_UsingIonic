@@ -36,7 +36,7 @@ export class GroupPage implements OnInit, OnDestroy {
               this.totalGroups = groupData.groupCount;
               this.username = this.authService.getName();
               this.groups = groupData.groups;
-              console.log(this.groups);
+              // console.log(this.groups);
           });
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService
@@ -49,12 +49,18 @@ export class GroupPage implements OnInit, OnDestroy {
 
 
     onSaveGroup(form: NgForm) {
-        console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
+        // console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
         this.groupsService.addGroup(form.value.name, form.value.cname,
             form.value.description, localStorage.getItem('username')).subscribe( () => {
             this.groupsService.getGroups();
         });
         form.reset();
+    }
+    onJoin(id: string) {
+        this.groupsService.requestGroup(id).subscribe(() => {
+            // this.socket.emit('refresh', {});
+            this.groupsService.getGroups();
+        });
     }
 
     ngOnDestroy() {

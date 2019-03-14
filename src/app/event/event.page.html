@@ -89,6 +89,9 @@
       <strong>{{event.description}}</strong>
       <br/>
       <strong>Event Date: </strong>{{ event.eventdate | date:'MMM dd, yyyy' }}
+      <!--<mat-action-row *ngIf=" userId != event.creator && !event.eventmembersid.includes(userId)">-->
+        <ion-button *ngIf=" userId != event.creator && !event.eventmembersid.includes(userId)"  (click)="onJoin(event.id)">JOIN</ion-button>
+      <!--</mat-action-row>-->
     </ion-card-content>
   </ion-card>
 </ion-content>

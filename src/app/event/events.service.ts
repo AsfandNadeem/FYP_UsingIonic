@@ -56,17 +56,18 @@ export class EventsService {
     // const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
     this.http
       .get<{message: string, events: any,  username: string, maxEvents: number}>(
-        'http://192.168.10.7:3000/api/events')
+        'http://localhost:3000/api/events')
       .pipe(map((eventData) => {
         return { events: eventData.events.map(event => {
             return {
-              eventname: event.eventname,
-              description: event.description,
-              id: event._id,
-              eventdate: event.eventdate,
-              username : event.username,
-              creator: event.eventcreator,
-              category: event.category,
+                eventname: event.eventname,
+                description: event.description,
+                id: event._id,
+                eventdate: event.eventdate,
+                eventmembersid: event.eventmembersid,
+                username : event.username,
+                creator: event.eventcreator,
+                category: event.category,
               // imagePath: post.imagePath
             };
           }), maxEvents: eventData.maxEvents  };
@@ -115,7 +116,7 @@ export class EventsService {
   addEvent(eventname: string,  category: string, description: string, eventdate: Date, username: string) {
     return this.http
       .post(
-        'http://192.168.10.7:3000/api/events',
+        'http://localhost:3000/api/events',
         {eventname, description, category, eventdate, username});
   }
 
@@ -143,7 +144,7 @@ export class EventsService {
       .put<{ message: string }>(
         'http://localhost:3000/api/events/adduser/' + id)
       .subscribe(responseData  => {
-        this.router.navigate(['/eventpage/' + id]);
+        // this.router.navigate(['/eventpage/' + id]);
       });
          }
 

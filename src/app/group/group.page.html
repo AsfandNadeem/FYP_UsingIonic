@@ -73,8 +73,14 @@
     <!--<img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >-->
     <ion-card-content>
       <strong>{{group.description}}</strong>
+
       <br/>
-      <!--<strong>Date: </strong>{{ post.createdAt | date:'MMM dd, yyyy' }}-->
+      <!--<ion-action-sheet *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && !group.grouprequestsid.includes(userId)">-->
+        <ion-button *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && !group.grouprequestsid.includes(userId)" (click)="onJoin(group.id)">JOIN</ion-button>
+      <!--</ion-action-sheet>-->
+      <!--<ion-action-sheet *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && group.grouprequestsid.includes(userId)">-->
+        <label *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && group.grouprequestsid.includes(userId)" color="primary">Request sent!</label>
+      <!--</mat-action-row>-->
     </ion-card-content>
   </ion-card>
 </ion-content>

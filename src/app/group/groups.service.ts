@@ -56,16 +56,20 @@ export class GroupsService {
     // const queryParams = `?pagesize=${groupsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
    this.http
      .get<{message: string, groups: any,  username: string, maxGroups: number}>(
-       'http://192.168.10.7:3000/api/groups')
+       'http://localhost:3000/api/groups')
      .pipe(map((groupData) => {
        return { groups: groupData.groups.map(group => {
          return {
-           groupname: group.groupname,
-           description: group.description,
-           id: group._id,
-           username : group.username,
-           creator: group.groupcreator,
-           category: group.category,
+             groupname: group.groupname,
+             description: group.description,
+             id: group._id,
+             username : group.username,
+             creator: group.groupcreator,
+             grouprequests: group.grouprequests,
+             grouprequestsid: group.grouprequestsid,
+             groupmembers: group.groupmembers,
+             groupmembersid: group.groupmembersid,
+             category: group.category,
            // imagePath: post.imagePath
          };
        }), maxGroups: groupData.maxGroups  };
@@ -121,7 +125,7 @@ export class GroupsService {
   addGroup(groupname: string,  category: string, description: string, username: string) {
     return this.http
       .post(
-        'http://192.168.10.7:3000/api/groups',
+        'http://localhost:3000/api/groups',
         {groupname, description, category, username});
   }
 
@@ -142,15 +146,24 @@ export class GroupsService {
       });
   }
 
-  joinGroup( id: string) {
-    // @ts-ignore
-    this.http
-      .put<{ message: string }>(
-        'http://localhost:3000/api/groups/adduser/' + id)
-      .subscribe(responseData  => {
-        this.router.navigate(['/grouppage/' + id]);
-      });
-  }
+    joinGroup( userid: string, groupid: string) {
+        const groupData =  {
+            groupid: groupid,
+            userid: userid
+        };
+        // @ts-ignore
+        return this.http
+            .put<{ message: string }>(
+                'http://localhost:3000/api/groups/adduser', groupData);
+    }
+
+    requestGroup( id: string) {
+        // return this.http.put( 'http://localhost:3000/api/posts/dislikePost/' + id);
+        // @ts-ignore
+        return this.http
+            .put(
+                'http://localhost:3000/api/groups/requestuser/' + id);
+    }
 
   likePost(postid: string, groupid: string) {
     const groupData =  {

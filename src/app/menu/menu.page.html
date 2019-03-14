@@ -15,12 +15,12 @@
         <ion-list style="list-style: none; display: flex;">
           <ion-item lines="none">
             <ion-avatar slot="start">
-              <!--<img [src]= "profileimg">-->
-              <img [src]= "profileimg.replace('localhost', '192.168.10.7')">
+              <img [src]= "profileimg">
+              <!--<img [src]= "profileimg.replace('localhost', '10.113.4.28')">-->
             </ion-avatar>
           </ion-item>
           <ion-item lines="none">
-            <ion-card-title>Asfand</ion-card-title>
+            <ion-card-title>{{username}}</ion-card-title>
           </ion-item>
         </ion-list>
       </ion-toolbar>
