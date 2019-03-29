@@ -93,5 +93,7 @@
         <ion-button *ngIf=" userId != event.creator && !event.eventmembersid.includes(userId)"  (click)="onJoin(event.id)">JOIN</ion-button>
       <!--</mat-action-row>-->
     </ion-card-content>
+    <!--<a mat-button color="primary" *ngIf="event.eventmembersid.includes(userId)" [routerLink]="['/eventpage', event.id]">Open</a>-->
+    <ion-button *ngIf="event.eventmembersid.includes(userId)"  [routerLink]="['/eventpage', event.id]" routerDirection="forward">Open</ion-button>
   </ion-card>
 </ion-content>

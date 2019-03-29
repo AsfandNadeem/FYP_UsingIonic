@@ -12,40 +12,50 @@ export class EventsService {
   username = '';
   private events: Events[] = [];
   private posts: Post[] = [];
-  private eventsUpdated = new Subject<{events: Events[], eventCount: number}>();
-  private postsUpdated = new Subject<{posts: Post[]}>();
+    private eventsUpdated = new Subject<{events: Events[], eventCount: number}>();
+    private postsUpdated = new Subject<{posts: Post[], eventmembers: any, eventname: string,
+        eventdate: Date, description: string, eventcreator: string}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getPosts(id: string) {
-    console.log('eventinservicee' + id);
-    this.http.get<{posts: any}>
-    ('http://localhost:3000/api/events/' + id)
-      .pipe(map((postData) => {
-        return { posts: postData.posts.map(post => {
-          return {
-            title: post.title,
-            content: post.content,
-            username : post.username,
-            creator: post.creator,
-            likes: post.likes,
-            id: post._id,
-            commentsNo: post.commentsNo,
-            comments: post.comments,
-            profileimg: post.profileimg,
-            dislikes: post.dislikes,
-            createdAt: post.createdAt,
-            imagePath: post.imagePath
-          };
-          })};
-      }))
-      .subscribe( transformedEventPost => {
-        this.posts = transformedEventPost.posts;
-        this.postsUpdated.next( {
-          posts: [...this.posts]
-        });
-      });
-  }
+    getPosts(id: string) {
+        console.log('eventinservicee' + id);
+        this.http.get<{eventmembers: any, eventname: any, eventdate: Date, description: any, eventcreator: any, posts: any}>
+        ('http://localhost:3000/api/events/' + id)
+            .pipe(map((postData) => {
+                return { posts: postData.posts.map(post => {
+                        return {
+                            title: post.title,
+                            content: post.content,
+                            username : post.username,
+                            creator: post.creator,
+                            likes: post.likes,
+                            likedBy: post.likedBy,
+                            dislikedBy: post.dislikedBy,
+                            id: post._id,
+                            commentsNo: post.commentsNo,
+                            comments: post.comments,
+                            profileimg: post.profileimg,
+                            dislikes: post.dislikes,
+                            createdAt: post.createdAt,
+                            imagePath: post.imagePath
+                        };
+                    }), eventmembers:  postData.eventmembers, eventname: postData.eventname,
+                    eventcreator: postData.eventcreator,
+                    eventdescription: postData.description, eventdate: postData.eventdate};
+            }))
+            .subscribe( transformedEventPost => {
+                this.posts = transformedEventPost.posts;
+                this.postsUpdated.next( {
+                    posts: [...this.posts],
+                    eventmembers: transformedEventPost.eventmembers,
+                    eventname: transformedEventPost.eventname,
+                    eventdate: transformedEventPost.eventdate,
+                    description: transformedEventPost.eventdescription,
+                    eventcreator: transformedEventPost.eventcreator
+                });
+            });
+    }
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
@@ -121,22 +131,22 @@ export class EventsService {
   }
 
 
-  addPost(id: string, title: string, content: string , image: File) {
-    const postData =  new FormData();
-    postData.append('title', title);
-    postData.append('content', content);
-    postData.append('image', image, title);
-    // postData.append('username', localStorage.getItem('username'));
-    // postData.append('profileimg', profileimg);
-    console.log(postData);
-    this.http
-      .put<{ message: string }>(
-        'http://localhost:3000/api/events/addeventPost/' + id,
-        postData)
-      .subscribe( responseData  => {
-        this.router.navigate(['/eventpage/' + id]);
-      });
-  }
+    addPost(id: string, title: string, content: string , image: File) {
+        const postData =  new FormData();
+        postData.append('title', title);
+        postData.append('content', content);
+        postData.append('image', image, title);
+        // postData.append('username', localStorage.getItem('username'));
+        // postData.append('profileimg', profileimg);
+        console.log(postData);
+        return this.http
+            .put<{ message: string }>(
+                'http://localhost:3000/api/events/addeventPost/' + id,
+                postData);
+        // .subscribe( responseData  => {
+        //   this.router.navigate(['/eventpage/' + id]);
+        // });
+    }
 
   joinEvent( id: string) {
     // @ts-ignore

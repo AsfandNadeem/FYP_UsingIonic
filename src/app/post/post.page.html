@@ -58,25 +58,28 @@
 
         <ion-card-header>
             <ion-list style="list-style: none; display: flex;">
-                <ion-item lines="none">
+                <ion-item lines="none" lines="none">
                     <ion-avatar slot="start">
-                        <img [src]= "post.profileimg">
+                        <img [hidden]= "!post.profileimg" [src]= "post.profileimg">
                         <!--<img [src]= "post.profileimg.replace('localhost', '10.113.4.28')">-->
                     </ion-avatar>
                 </ion-item>
-                <ion-item>
+                <ion-list style="list-style: none; display: block;">
+                <ion-item lines="none">
                     <ion-card-title>{{post.username}}</ion-card-title>
                 </ion-item>
 
-           <ion-item>
-            <ion-card-subtitle>{{ post.title }}</ion-card-subtitle>
+
+           <ion-item lines="none">
+               <ion-card-subtitle><strong>{{ post.title }}</strong></ion-card-subtitle>
            </ion-item>
+                </ion-list>
             </ion-list>
         </ion-card-header>
         <img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >
         <!--<img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '10.113.4.28')" [alt]="post.title" >-->
         <ion-card-content>
-            <strong>{{post.content}}</strong>
+            {{post.content}}
             <br/>
             <strong>Date: </strong>{{ post.createdAt | date:'MMM dd, yyyy' }}
             <!--<ion-button style="background-color: white;" (click)="likePost(post.id,post)" >-->

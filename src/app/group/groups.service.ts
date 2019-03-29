@@ -11,42 +11,53 @@ export class GroupsService {
   username = '';
   private groups: Group[] = [];
   private posts: Post[] = [];
-  private groupsUpdated = new Subject<{groups: Group[], groupCount: number}>();
+    private groupsUpdated = new Subject<{groups: Group[], groupCount: number}>();
 
-  private postsUpdated = new Subject<{posts: Post[]}>();
+    private postsUpdated = new Subject<{posts: Post[], groupmembers: any, groupname: string,
+        description: string, groupcreator: string, grouprequests: any}>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
 
-  getPosts(id: string) {
-    console.log('inservicee' + id);
-    this.http.get<{posts: any}>
-    ('http://localhost:3000/api/groups/' + id)
-      .pipe(map((postData) => {
-        return { posts: postData.posts.map(post => {
-          return {
-            title: post.title,
-            content: post.content,
-            username : post.username,
-            creator: post.creator,
-            likes: post.likes,
-            commentsNo: post.commentsNo,
-            comments: post.comments,
-            dislikes: post.dislikes,
-            profileimg: post.profileimg,
-            id: post._id,
-            createdAt: post.createdAt,
-            imagePath: post.imagePath
-          };
-          })};
-      }))
-      .subscribe( transformedGroupPost => {
-        this.posts = transformedGroupPost.posts;
-        this.postsUpdated.next( {
-          posts: [...this.posts]
-        });
-      });
-  }
+    getPosts(id: string) {
+        console.log('inservicee' + id);
+        this.http.get<{groupmembers: any, groupname: any, description: any, groupcreator: any, grouprequests: any, posts: any}>
+        ('http://localhost:3000/api/groups/' + id)
+            .pipe(map((postData) => {
+                return { posts: postData.posts.map(post => {
+                        return {
+                            title: post.title,
+                            content: post.content,
+                            username : post.username,
+                            creator: post.creator,
+                            likes: post.likes,
+                            likedBy: post.likedBy,
+                            dislikedBy: post.dislikedBy,
+                            commentsNo: post.commentsNo,
+                            comments: post.comments,
+                            dislikes: post.dislikes,
+                            profileimg: post.profileimg,
+                            id: post._id,
+                            createdAt: post.createdAt,
+                            imagePath: post.imagePath
+                        };
+                    }), groupmembers:  postData.groupmembers, groupname: postData.groupname,
+                    groupcreator: postData.groupcreator,
+                    groupdescription: postData.description, grouprequests: postData.grouprequests};
+            }))
+            .subscribe( transformedGroupPost => {
+                this.posts = transformedGroupPost.posts;
+                this.postsUpdated.next( {
+                    posts: [...this.posts],
+                    groupmembers: transformedGroupPost.groupmembers,
+                    grouprequests: transformedGroupPost.grouprequests,
+                    groupname: transformedGroupPost.groupname,
+                    description: transformedGroupPost.groupdescription,
+                    groupcreator: transformedGroupPost.groupcreator
+                });
+            });
+    }
+
 
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
@@ -129,22 +140,22 @@ export class GroupsService {
         {groupname, description, category, username});
   }
 
-  addPost(id: string, title: string, content: string , image: File) {
-    const postData =  new FormData();
-    postData.append('title', title);
-    postData.append('content', content);
-    postData.append('image', image, title);
-    // postData.append('username', localStorage.getItem('username'));
-    // postData.append('profileimg', profileimg);
-    console.log(postData);
-    this.http
-      .put<{ message: string }>(
-        'http://localhost:3000/api/groups/addgroupPost/' + id,
-        postData)
-      .subscribe( responseData  => {
-        this.router.navigate(['/grouplist']);
-      });
-  }
+    addPost(id: string, title: string, content: string , image: File) {
+        const postData =  new FormData();
+        postData.append('title', title);
+        postData.append('content', content);
+        postData.append('image', image, title);
+        // postData.append('username', localStorage.getItem('username'));
+        // postData.append('profileimg', profileimg);
+        console.log(postData);
+        return this.http
+            .put<{ message: string }>(
+                'http://localhost:3000/api/groups/addgroupPost/' + id,
+                postData);
+        // .subscribe( responseData  => {
+        //   this.router.navigate(['/grouplist']);
+        // });
+    }
 
     joinGroup( userid: string, groupid: string) {
         const groupData =  {

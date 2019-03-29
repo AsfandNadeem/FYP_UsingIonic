@@ -23,7 +23,11 @@ const routes: Routes = [
           {
               path: 'event',
               loadChildren: '../event/event.module#EventPageModule'
-          }
+          },
+          {
+              path: 'eventpage/:eventId',
+              loadChildren:  './event/eventpage/eventpage/eventpage.module#EventpagePageModule'
+          },
       ]
   },
     {

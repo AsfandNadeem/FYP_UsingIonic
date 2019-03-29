@@ -75,6 +75,7 @@
       <strong>{{group.description}}</strong>
 
       <br/>
+      <ion-button color="primary" *ngIf="group.groupmembersid.includes(userId)" routerDirection="forward" [routerLink]="['/grouppage', group.id]">Open</ion-button>
       <!--<ion-action-sheet *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && !group.grouprequestsid.includes(userId)">-->
         <ion-button *ngIf=" userId != group.creator && !group.groupmembersid.includes(userId) && !group.grouprequestsid.includes(userId)" (click)="onJoin(group.id)">JOIN</ion-button>
       <!--</ion-action-sheet>-->
