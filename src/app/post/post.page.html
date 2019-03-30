@@ -66,7 +66,10 @@
                 </ion-item>
                 <ion-list style="list-style: none; display: block;">
                 <ion-item lines="none">
-                    <ion-card-title>{{post.username}}</ion-card-title>
+                    <ion-card-title><a style="text-decoration: none; color: grey ;" [routerLink]="['/userpage', post.creator]" >{{post.username}}</a></ion-card-title>
+                    <!--<ion-button color="primary" *ngIf="group.groupmembersid.includes(userId)" routerDirection="forward" [routerLink]="['/grouppage', group.id]">Open</ion-button>-->
+                    <!--<a style="text-decoration: none; color: grey ;" [routerLink]="['/user', post.creator]"><strong>{{post.username}}</strong></a></mat-card-title>-->
+
                 </ion-item>
 
 

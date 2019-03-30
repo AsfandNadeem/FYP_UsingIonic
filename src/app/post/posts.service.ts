@@ -10,9 +10,49 @@ import {Router} from '@angular/router';
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
-
+    private userposts: Post[] = [];
+    private userpostsUpdated = new Subject<{posts: Post[], postCount: number}>();
   constructor(private http: HttpClient, private router: Router) {}
 
+    getuserPosts(userid: string) {
+      this.http
+            .get<{message: string, posts: any,  username: string, maxPosts: number}>(
+                'http://localhost:3000/api/posts/user/' + userid
+            )
+            .pipe(map((postData) => {
+                return { posts: postData.posts.map(post => {
+                        return {
+                            profileimg: post.profileimg,
+                            title: post.title,
+                            content: post.content,
+                            id: post._id,
+                            username : post.username,
+                            creator: post.creator,
+                            likes: post.likes,
+                            likedBy: post.likedBy,
+                            dislikedBy: post.dislikedBy,
+                            category: post.category,
+                            commentsNo: post.commentsNo,
+                            comments: post.comments,
+                            dislikes: post.dislikes,
+                            createdAt: post.createdAt,
+                            imagePath: post.imagePath
+                        };
+                    }), maxPosts: postData.maxPosts  };
+            }))// change rterieving data
+            .subscribe(transformedPostData => {
+                this.userposts = transformedPostData.posts;
+                this.userpostsUpdated.next({
+                        posts: [...this.userposts],
+                        postCount: transformedPostData.maxPosts
+                    }
+                );
+            }); // subscribe is to liosten
+    }
+
+    getuserPostUpdateListener() {
+        return this.userpostsUpdated.asObservable();
+    }
 
 
   getPosts() { // httpclientmodule
