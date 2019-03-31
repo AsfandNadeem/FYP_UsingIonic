@@ -1,0 +1,138 @@
+<ion-header >
+  <ion-toolbar >
+    <ion-title >Chat: {{receivername}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="width: 100% !important;">
+<ion-grid>
+<ion-row class="mainrow">
+  <ion-col align-self-center size-md="12" size-lg="12" size-xs="12">
+    <!--<ion-row>-->
+      <!--<ion-card style="width: 100%;">-->
+        <!--<ion-card-header>-->
+        <!--<div  style="background: #64b5f6 !important;">-->
+          <!--<ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="imgCol" style="color: black !important; font-size: 20px;">-->
+            <!--<span>{{receivername}}</span>-->
+            <!--&lt;!&ndash;<span>ABBAS</span>&ndash;&gt;-->
+          <!--</ion-col>-->
+          <!--<ion-row>-->
+            <!--<ion-col align-self-center size-md="4" size-lg="3" size-xs="10" class="nameCol" style="color: black !important;">-->
+              <!--&lt;!&ndash;<span>{{receivername}}</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span>ABBAS</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;<p class="isOnline">Online</p>&ndash;&gt;-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+        <!--</div>-->
+        <!--</ion-card-header>-->
+      <!--</ion-card>-->
+    <!--</ion-row>-->
+    <ion-row class="mainrow2" style="display: block !important;">
+      <!--<ion-content class="scroll-zoom-wrapper scrollcontent" scrollX="true" direction="x">-->
+      <ion-card>
+        <ion-card-content  >
+          <ion-col align-self-center size-md="12" size-lg="12" size-xs="12" class="rowDiv" >
+            <!--ngx-auto-scroll lock-y-offset="10" observe-attributes-->
+            <ion-row>
+              <ion-col align-self-center size-md="12" size-lg="12" size-xs="12">
+                <div class="message-wrapper" *ngFor="let message of messagesArray"  >
+                  <div class="left" *ngIf="message.senderId != userId">
+                    <div class="chat-bubble left slide-left">
+                      <div class="message"> {{message.body}}</div>
+
+                    </div>
+                    <div class="clearfloat"></div>
+
+                  </div>
+                  <div class="right" *ngIf="message.senderId == userId" >
+                    <div class="chat-bubble right slide-right">
+                      <div class="message"> {{message.body}} </div>
+
+                    </div>
+
+                  </div>
+                  <div class="clearfloat"></div>
+                  <!--<div class="card-footer" style=""></div>-->
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                </div>
+                <div class="left" *ngIf="typing" >
+                  <div class="chat-bubble left slide-left">
+                    <div class="message"> is typing...</div>
+
+                  </div>
+
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <!--<ion-col  align-self-center size-md="6" size-lg="5" size-xs="12" style="margin: 0px;">-->
+            <!--<ion-row>-->
+              <!--<ion-card style="height: 90px; width: 100% !important;">-->
+                <!--<ion-card-content>-->
+                  <!--<div class="inputRow">-->
+                    <!--<form (ngSubmit)="SendMessage()">-->
+                      <!--<ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="input-field inputField" >-->
+<!--<textarea name="message"-->
+          <!--[(ngModel)]="message"-->
+          <!--(keypress)="IsTyping()"-->
+          <!--class="inputBox"-->
+          <!--style=" height: 30px !important;-->
+    <!--margin-bottom: 5px !important;-->
+    <!--width: 100% !important;-->
+<!--color: black !important;">-->
+
+<!--</textarea>-->
+                      <!--</ion-col>-->
+                      <!--<ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="input-field">-->
+                        <!--<button>Send</button>-->
+                      <!--</ion-col>-->
+                    <!--</form>-->
+                  <!--</div>-->
+                <!--</ion-card-content>-->
+              <!--</ion-card>-->
+
+            <!--</ion-row>-->
+          <!--</ion-col>-->
+        </ion-card-content>
+      </ion-card>
+      <!--</ion-content>-->
+    </ion-row>
+
+  </ion-col>
+</ion-row>
+</ion-grid>
+<!--<mat-card style="width: 100%;">-->
+</ion-content>
+<ion-footer>
+  <ion-col  align-self-center size-md="6" size-lg="5" size-xs="12" style="margin: 0px;">
+    <ion-row>
+      <ion-card style="height: 90px; width: 100% !important;">
+        <ion-card-content>
+          <div class="inputRow">
+            <form (ngSubmit)="SendMessage()">
+              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="input-field inputField" >
+<textarea name="message"
+          [(ngModel)]="message"
+          (keypress)="IsTyping()"
+          class="inputBox"
+          style=" height: 30px !important;
+    margin-bottom: 5px !important;
+    width: 100% !important;
+color: black !important;">
+
+</textarea>
+              </ion-col>
+              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="input-field">
+                <button>Send</button>
+              </ion-col>
+            </form>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-row>
+  </ion-col>
+</ion-footer>
+<!--</mat-card>-->

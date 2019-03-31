@@ -63,6 +63,7 @@ export class PostPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.posts = null;
         this.postsSub.unsubscribe();
         this.authStatusSub.unsubscribe();
     }
@@ -81,6 +82,7 @@ export class PostPage implements OnInit, OnDestroy {
         });
 
     }
+
 
 
 }

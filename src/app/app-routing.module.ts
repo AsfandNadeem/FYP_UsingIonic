@@ -15,6 +15,7 @@ const routes: Routes = [
       canActivate: [AuthGuardService]},
   { path: 'userpage/:userId', loadChildren: './post/userspage/userpage/userpage.module#UserpagePageModule',
       canActivate: [AuthGuardService]},
+  { path: 'chatpage/:userId', loadChildren: './chatpage/chatpage.module#ChatpagePageModule' },
   // { path: 'event', loadChildren: './event/event.module#EventPageModule' },
   // { path: 'post', loadChildren: './post/post.module#PostPageModule' },
   // { path: 'group', loadChildren: './group/group.module#GroupPageModule' },

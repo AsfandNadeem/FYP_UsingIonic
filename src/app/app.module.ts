@@ -8,7 +8,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule , HttpClient } from '@angular/common
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {AuthServiceService} from './auth/auth-service.service';
@@ -16,6 +15,7 @@ import {IonicStorageModule} from '@ionic/Storage';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthInterceptor} from './auth/auth-interceptor';
 import {MatExpansionModule} from '@angular/material';
+import {MessageserviceService} from './messageservice.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {MatExpansionModule} from '@angular/material';
     SplashScreen,
     { provide: RouteReuseStrategy,  useClass: IonicRouteStrategy },
       {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-      AuthServiceService
+      AuthServiceService, MessageserviceService
   ],
   bootstrap: [AppComponent]
 })
