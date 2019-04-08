@@ -15,6 +15,8 @@ export interface Comment {
 @Injectable({providedIn: 'root'})
 export class EventsService {
   username = '';
+    private comments: Comment[] = [];
+    private commentsUpdated = new Subject<{comments: Comment[]}>();
   private events: Events[] = [];
   private posts: Post[] = [];
     private eventsUpdated = new Subject<{events: Events[], eventCount: number}>();
@@ -66,7 +68,38 @@ export class EventsService {
     return this.postsUpdated.asObservable();
   }
 
+    getComments(postid: string, eventid: string) {
+        // const queryParams = `?postid=${postid}&groupid=${groupid}`;
+        // const groupData =  {
+        //     groupid: groupid,
+        //     postid: postid
+        // };
+        this.http
+            .get<{message: string, comments: any}>(
+                'http://localhost:3000/api/events/comments/' + eventid + '/' + postid
+            )
+            .pipe(map((postData) => {
+                return { comments: postData.comments.map(comments => {
+                        return {
+                            commentator: comments.commentator,
+                            comment: comments.comment,
+                            commentatorid: comments.commentatorid
+                        };
+                    }) };
+            }))// change rterieving data
+            .subscribe(transformedCommentData => {
+                this.comments = transformedCommentData.comments;
+                this.commentsUpdated.next({
+                        comments: [...this.comments]
+                    }
+                );
+            }); // subscribe is to liosten
+    }
 
+
+    getCommentUpdateListener() {
+        return this.commentsUpdated.asObservable();
+    }
   getEvents() { // httpclientmodule
     // const queryParams = `?pagesize=${eventsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
     this.http

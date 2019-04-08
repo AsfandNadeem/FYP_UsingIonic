@@ -73,26 +73,26 @@ export class GroupcommentsPage implements OnInit, OnDestroy {
           });
   }
 
-    // SendMessage() {
-    //     if (this.message === '') {
-    //         return;
-    //     }
-    //     this.groupService.addComment(this.postid, this.message)
-    //         .subscribe(() => {
-    //             this.message = '';
-    //             this.getComments();
-    //         });
-    //     // console.log(id + '\n' + form.value.comment);
-    //     // if (form.invalid) {
-    //     //     return;
-    //     // } else {
-    //     //     // this.postsService.addComment(id, form.value.comment).subscribe(() => {
-    //     //     //     this.socket.emit('refresh', {});
-    //     //     //     this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    //     //     });
-    //     // }
-    //
-    // }
+    SendMessage() {
+        if (this.message === '') {
+            return;
+        }
+        this.groupService.addComment(this.postid, this.groupid, this.message)
+            .subscribe(() => {
+                this.message = '';
+                this.getComments();
+            });
+        // console.log(id + '\n' + form.value.comment);
+        // if (form.invalid) {
+        //     return;
+        // } else {
+        //     // this.postsService.addComment(id, form.value.comment).subscribe(() => {
+        //     //     this.socket.emit('refresh', {});
+        //     //     this.postsService.getPosts(this.postsPerPage, this.currentPage);
+        //     });
+        // }
+
+    }
 
     getComments() {
         console.log('getting comments');
