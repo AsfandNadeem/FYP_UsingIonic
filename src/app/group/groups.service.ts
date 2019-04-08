@@ -6,8 +6,16 @@ import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Post} from '../post/post.model';
 
+export interface Comment {
+    id: string;
+    comment: string;
+    commentator: string;
+    commentatorid: string;
+}
 @Injectable({providedIn: 'root'})
 export class GroupsService {
+    private comments: Comment[] = [];
+    private commentsUpdated = new Subject<{comments: Comment[]}>();
   username = '';
   private groups: Group[] = [];
   private posts: Post[] = [];
@@ -62,6 +70,38 @@ export class GroupsService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+
+    getComments(postid: string, groupid: string) {
+        // const queryParams = `?postid=${postid}&groupid=${groupid}`;
+        const groupData =  {
+            groupid: groupid,
+           postid: postid
+        };
+        this.http
+            .get<{message: string, comments: any}>(
+                'http://localhost:3000/api/groups/comments/' + groupid + '/' + postid
+            )
+            .pipe(map((postData) => {
+                return { comments: postData.comments.map(comments => {
+                        return {
+                            commentator: comments.commentator,
+                            comment: comments.comment,
+                            commentatorid: comments.commentatorid
+                        };
+                    }) };
+            }))// change rterieving data
+            .subscribe(transformedCommentData => {
+                this.comments = transformedCommentData.comments;
+                this.commentsUpdated.next({
+                        comments: [...this.comments]
+                    }
+                );
+            }); // subscribe is to liosten
+    }
+
+    getCommentUpdateListener() {
+        return this.commentsUpdated.asObservable();
+    }
 
   getGroups() { // httpclientmodule
     // const queryParams = `?pagesize=${groupsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
@@ -176,31 +216,31 @@ export class GroupsService {
                 'http://localhost:3000/api/groups/requestuser/' + id);
     }
 
-  likePost(postid: string, groupid: string) {
-    const groupData =  {
-      groupid: groupid,
-      postid: postid
-    };
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/groups/likegrouppost', groupData);
-  }
-  //
-  dislikePost(postid: string, groupid: string) {
-    const groupData =  {
-      groupid: groupid,
-      postid: postid
-    };
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/groups/dislikegrouppost', groupData);
-  }
+    likePost(postid: string, groupid: string) {
+        const groupData =  {
+            groupid: groupid,
+            postid: postid
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/groups/likegrouppost/' + groupid, groupData);
+    }
+    //
+    dislikePost(postid: string, groupid: string) {
+        const groupData =  {
+            groupid: groupid,
+            postid: postid
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/groups/dislikegrouppost/' + groupid, groupData);
+    }
 
-  addComment(postid: string, groupid: string, comment: string) {
-    const groupData =  {
-      groupid: groupid,
-      postid: postid,
-      comment: comment
-    };
-    // @ts-ignore
-     return this.http.put( 'http://localhost:3000/api/groups/commentgrouppost', groupData);
-  }
+    addComment(postid: string, groupid: string, comment: string) {
+        const groupData =  {
+            groupid: groupid,
+            postid: postid,
+            comment: comment
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/groups/commentgrouppost/' + groupid, groupData);
+    }
 }

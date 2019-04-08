@@ -6,7 +6,12 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Post} from '../post/post.model';
-
+export interface Comment {
+    id: string;
+    comment: string;
+    commentator: string;
+    commentatorid: string;
+}
 @Injectable({providedIn: 'root'})
 export class EventsService {
   username = '';
@@ -158,31 +163,31 @@ export class EventsService {
       });
          }
 
-  likePost(postid: string, eventid: string) {
-    const eventData =  {
-      eventid: eventid,
-      postid: postid
-    };
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/events/likeeventpost', eventData);
-  }
-  //
-  dislikePost(postid: string, eventid: string) {
-    const eventData =  {
-      eventid: eventid,
-      postid: postid
-    };
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/events/dislikeeventpost', eventData);
-  }
+    likePost(postid: string, eventid: string) {
+        const eventData =  {
+            eventid: eventid,
+            postid: postid
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/events/likeeventpost/' + eventid, eventData);
+    }
+    //
+    dislikePost(postid: string, eventid: string) {
+        const eventData =  {
+            eventid: eventid,
+            postid: postid
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/events/dislikeeventpost/' + eventid, eventData);
+    }
 
-   addComment(postid: string, eventid: string, comment: string) {
-    const eventData =  {
-      eventid: eventid,
-      postid: postid,
-      comment: comment
-    };
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/events/commenteventpost', eventData);
-  }
+    addComment(postid: string, eventid: string, comment: string) {
+        const eventData =  {
+            eventid: eventid,
+            postid: postid,
+            comment: comment
+        };
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/events/commenteventpost/' + eventid, eventData);
+    }
 }

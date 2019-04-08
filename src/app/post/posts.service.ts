@@ -6,8 +6,16 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
+export interface Comment {
+    id: string;
+    comment: string;
+    commentator: string;
+    commentatorid: string;
+}
 @Injectable({providedIn: 'root'})
 export class PostsService {
+    private comments: Comment[] = [];
+    private commentsUpdated = new Subject<{comments: Comment[]}>();
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
     private userposts: Post[] = [];
@@ -95,6 +103,33 @@ export class PostsService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+
+    getComments(id: string) {
+      this.http
+            .get<{message: string, comments: any}>(
+                'http://localhost:3000/api/posts/comments/' + id
+            )
+            .pipe(map((postData) => {
+                return { comments: postData.comments.map(comments => {
+                        return {
+                            commentator: comments.commentator,
+                            comment: comments.comment,
+                            commentatorid: comments.commentatorid
+                        };
+                    }) };
+            }))// change rterieving data
+            .subscribe(transformedCommentData => {
+                this.comments = transformedCommentData.comments;
+                this.commentsUpdated.next({
+                        comments: [...this.comments]
+                    }
+                );
+            }); // subscribe is to liosten
+    }
+
+    getCommentUpdateListener() {
+        return this.commentsUpdated.asObservable();
+    }
 
   addPost(title: string, content: string , category: string) {
     // const postData =  new FormData();
