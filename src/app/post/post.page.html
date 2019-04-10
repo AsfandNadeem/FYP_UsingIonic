@@ -3,6 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+      <ion-title>Home Page</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -118,10 +119,14 @@
                     <!--<mat-expansion-panel-header>-->
                         <!--<mat-panel-title>-->
 
-            <a [routerLink]="['/comments', post.id]" > <ion-icon name="list-box"></ion-icon></a>
+            <a [routerLink]="['/comments', post.id]"  > <ion-icon name="list-box"></ion-icon></a>
                             {{ post.commentsNo }}
 
-                        <!--</mat-panel-title>-->
+            <ion-button color="primary" *ngIf="userId != post.creator" (click)="onArchive(post.id)">Save</ion-button>
+
+            <!--<ard-actions >-->
+                <!--<button mat-button  color="warn" (click)="onArchive(post.id)">SAVE</button>-->
+            <!--</-card-actions>&lt;!&ndash;</mat-panel-title>&ndash;&gt;-->
 
                     <!--&lt;!&ndash;</mat-expansion-panel-header>&ndash;&gt;-->
 

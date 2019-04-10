@@ -23,6 +23,10 @@ const routes: Routes = [
           {
               path: 'event',
               loadChildren: '../event/event.module#EventPageModule'
+          },
+          {
+              path: 'archivespage',
+              loadChildren: './post/archivespage/archivespage.module#ArchivespagePageModule'
           }
           // {
           //     path: 'eventpage/:eventId',

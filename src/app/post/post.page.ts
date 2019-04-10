@@ -53,7 +53,6 @@ export class PostPage implements OnInit, OnDestroy {
               this.userId = this.authService.getUserId();
           });
   }
-
     onSavePost(form: NgForm) {
         // console.log(form.value.title + ' ' + form.value.content + ' ' + form.value.cname );
         this.postsService.addPost(form.value.title, form.value.content, form.value.cname).subscribe( () => {
@@ -81,6 +80,13 @@ export class PostPage implements OnInit, OnDestroy {
             this.postsService.getPosts();
         });
 
+    }
+
+    onArchive(id: string) {
+        console.log(id);
+        this.postsService.archivepost(id).subscribe( () => {
+            this.postsService.getPosts();
+        });
     }
 
 

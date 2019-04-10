@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'comments/:postId', loadChildren: './comments/comments.module#CommentsPageModule', canActivate: [AuthGuardService] },
   { path: 'groupcomments/:groupId/:postId', loadChildren: './groupcomments/groupcomments.module#GroupcommentsPageModule' },
   { path: 'eventscomments/:eventId/:postId', loadChildren: './eventscomments/eventscomments.module#EventscommentsPageModule' },
+  // { path: 'archivespage', loadChildren: './post/archivespage/archivespage.module#ArchivespagePageModule' },
   // { path: 'event', loadChildren: './event/event.module#EventPageModule' },
   // { path: 'post', loadChildren: './post/post.module#PostPageModule' },
   // { path: 'group', loadChildren: './group/group.module#GroupPageModule' },

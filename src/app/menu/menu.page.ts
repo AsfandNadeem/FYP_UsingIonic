@@ -21,6 +21,10 @@ export class MenuPage implements OnInit {
         {
             title: 'Events',
             url: '/menu/menu/event'
+        },
+        {
+            title: 'Archives',
+            url: '/menu/menu/archivespage'
         }
     ];
 

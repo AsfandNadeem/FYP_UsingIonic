@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+        <ion-title>Archives</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let post of posts">
+
+    <ion-card-header>
+      <ion-list style="list-style: none; display: flex;">
+        <ion-item lines="none" lines="none">
+          <ion-avatar slot="start">
+            <img [hidden]= "!post.profileimg" [src]= "post.profileimg">
+            <!--<img [src]= "post.profileimg.replace('localhost', '10.113.4.28')">-->
+          </ion-avatar>
+        </ion-item>
+        <ion-list style="list-style: none; display: block;">
+          <ion-item lines="none">
+            <ion-card-title *ngIf="post.creator"><a style="text-decoration: none; color: grey ;" [routerLink]="['/userpage', post.creator]" >{{post.username}}</a></ion-card-title>
+            <ion-card-title  *ngIf="!post.creator"><strong>Advertisement<br/>{{post.username}}</strong></ion-card-title>
+            <!--<ion-button color="primary" *ngIf="group.groupmembersid.includes(userId)" routerDirection="forward" [routerLink]="['/grouppage', group.id]">Open</ion-button>-->
+            <!--<a style="text-decoration: none; color: grey ;" [routerLink]="['/user', post.creator]"><strong>{{post.username}}</strong></a></mat-card-title>-->
+            <!--<img-->
+            <!--[hidden]="!post.profileimg"-->
+            <!--class="example-header-image-post"-->
+            <!--[src]="post.profileimg" style="margin-right: 30px;" >-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<mat-card-title *ngIf="!post.creator"><strong>Advertisement<br/><p style="color: grey;">{{post.username}}</p></strong></mat-card-title>-->
+            <!--<mat-card-title *ngIf="post.creator"><a style="text-decoration: none; color: grey ;" [routerLink]="['/user', post.creator]"><strong>{{post.username}}</strong></a></mat-card-title>-->
+
+
+          </ion-item>
+
+
+          <ion-item lines="none">
+            <ion-card-subtitle><strong>{{ post.title }}</strong></ion-card-subtitle>
+          </ion-item>
+        </ion-list>
+      </ion-list>
+    </ion-card-header>
+    <img [hidden]="!post.imagePath" [src]="post.imagePath" [alt]="post.title" >
+    <!--<img  *ngIf="post.imagePath" [hidden]="!post.imagePath" [src]="post.imagePath.replace('localhost', '10.113.4.28')" [alt]="post.title" >-->
+    <ion-card-content>
+      {{post.content}}
+      <br/>
+      <strong>Date: </strong>{{ post.createdAt | date:'MMM dd, yyyy' }}
+      <!--<ion-button style="background-color: white;" (click)="likePost(post.id,post)" >-->
+      <ion-icon name="thumbs-up" *ngIf="post.likedBy.includes(userId)" color="primary" (click)="likePost(post.id)"></ion-icon>
+      <!--<mat-icon *ngIf="post.likedBy.includes(userId)" color="primary" >thumb_up</mat-icon>-->
+      <ion-icon name="thumbs-up" *ngIf="!post.likedBy.includes(userId)" (click)="likePost(post.id)" ></ion-icon>
+      {{ post.likes }}
+      <!--</ion-button>-->
+
+
+
+      <ion-icon name="thumbs-down" *ngIf="post.dislikedBy.includes(userId)" color="primary" (click)="dislikePost(post.id)"></ion-icon>
+      <!--<mat-icon *ngIf="post.likedBy.includes(userId)" color="primary" >thumb_up</mat-icon>-->
+      <ion-icon name="thumbs-down" *ngIf="!post.dislikedBy.includes(userId)"  (click)="dislikePost(post.id)"></ion-icon>
+      {{ post.dislikes }}
+      <!--<ion-button  (click)="dislikePost(post.id)" >-->
+      <!--<mat-icon *ngIf="post.dislikedBy.includes(userId)" color="primary" >thumb_down</mat-icon>-->
+      <!--<mat-icon *ngIf="!post.dislikedBy.includes(userId)"  >thumb_down</mat-icon>-->
+      <!--{{ post.dislikes }}-->
+      <!--</ion-button>-->
+      <!--<mat-accordion class="example-headers-align" >-->
+      <!--<mat-expansion-panel  [class.mat-expansion-panel]="false" hideToggle>-->
+      <!--<mat-expansion-panel-header>-->
+      <!--<mat-panel-title>-->
+
+      <a [routerLink]="['/comments', post.id]" > <ion-icon name="list-box"></ion-icon></a>
+      {{ post.commentsNo }}
+
+      <ion-button mat-button  color="primary" (click)="onDelete(post.id)">REMOVE</ion-button>
+
+      <!--<ard-actions >-->
+      <!--<button mat-button  color="warn" (click)="onArchive(post.id)">SAVE</button>-->
+      <!--</-card-actions>&lt;!&ndash;</mat-panel-title>&ndash;&gt;-->
+
+      <!--&lt;!&ndash;</mat-expansion-panel-header>&ndash;&gt;-->
+
+      <!--<ion-list class="commentspanel" style="list-style: none; display: flex;">-->
+      <!--<ion-item lines="none" >-->
+      <!--<ion-input-->
+      <!--type="text"-->
+      <!--required-->
+      <!--[(ngModel)]="comment"-->
+      <!--ngModel-->
+      <!--#commentInput="ngModel"-->
+      <!--name="comment"-->
+      <!--placeholder="Comment">-->
+      <!--</ion-input>-->
+      <!--<mat-form-field style="width:700px; !important; " >-->
+      <!--<ion-input-->
+      <!--type="text"-->
+      <!--placeholder="Add a Comment"-->
+      <!--ngModel-->
+      <!--[[ngModel)]="comment"-->
+      <!--#commentInput="ngModel"-->
+      <!--required-->
+      <!--name="comment"></ion-input>-->
+      <!--<mat-error *ngIf="commentInput.invalid">Please enter a comment.</mat-error>-->
+
+      <!--</mat-form-field>-->
+      <!--</ion-item>-->
+      <!--<ion-item lines="none">-->
+      <!--&lt;!&ndash;<button (click)="addComment(post.id,commentInput.value)">&ndash;&gt;-->
+      <!--<ion-icon name="send" ></ion-icon>-->
+      <!--&lt;!&ndash;</button>&ndash;&gt;-->
+      <!--</ion-item>-->
+      <!--</ion-list>-->
+
+      <!--<ion-list style="list-style: none;">-->
+      <!--<ion-item *ngFor="let comment of post.comments" style="margin:0;">-->
+      <!--<strong>{{comment.commentator}}: &nbsp; </strong>-->
+
+      <!--<p>-->
+      <!--{{comment.comment}}-->
+      <!--</p>-->
+      <!--&lt;!&ndash;<ion-item-divider></ion-item-divider>&ndash;&gt;-->
+      <!--</ion-item>-->
+
+      <!--</ion-list>-->
+
+      <!--<mat-card class="example-card" style="width:80% !important;" *ngFor="let comment of post.comments">-->
+
+
+      <!--<mat-card-content>-->
+      <!--<strong>{{comment.commentator}}</strong>-->
+      <!--<br/>-->
+      <!--<p>-->
+      <!--{{comment.comment}}-->
+      <!--</p>-->
+      <!--</mat-card-content>-->
+
+      <!--</mat-card>-->
+
+
+
+
+
+
+
+      <!--</mat-expansion-panel>-->
+
+
+
+
+
+
+      <!--</mat-accordion>-->
+
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

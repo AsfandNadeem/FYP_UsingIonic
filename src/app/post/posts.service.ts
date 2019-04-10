@@ -19,12 +19,14 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
     private userposts: Post[] = [];
-    private userpostsUpdated = new Subject<{posts: Post[], postCount: number}>();
+    private userpostsUpdated = new Subject<{posts: Post[], usern: string, postCount: number}>();
+    private archivedposts: Post[] = [];
+    private archivedpostsUpdated = new Subject<{posts: Post[], postCount: number}>();
   constructor(private http: HttpClient, private router: Router) {}
 
     getuserPosts(userid: string) {
       this.http
-            .get<{message: string, posts: any,  username: string, maxPosts: number}>(
+            .get<{message: string, posts: any,  usern: string, maxPosts: number}>(
                 'http://localhost:3000/api/posts/user/' + userid
             )
             .pipe(map((postData) => {
@@ -46,12 +48,13 @@ export class PostsService {
                             createdAt: post.createdAt,
                             imagePath: post.imagePath
                         };
-                    }), maxPosts: postData.maxPosts  };
+                    }),  usern: postData.usern, maxPosts: postData.maxPosts  };
             }))// change rterieving data
             .subscribe(transformedPostData => {
                 this.userposts = transformedPostData.posts;
                 this.userpostsUpdated.next({
                         posts: [...this.userposts],
+                    usern: transformedPostData.usern,
                         postCount: transformedPostData.maxPosts
                     }
                 );
@@ -225,49 +228,53 @@ export class PostsService {
     return this.http.put( 'http://localhost:3000/api/posts/comment/' + id, postdata);
   }
 
-  archivepost(id: string) {
-    // @ts-ignore
-    return this.http.put( 'http://localhost:3000/api/posts/archivePost/' + id);
-  }
+    archivepost(id: string) {
+        // @ts-ignore
+        return this.http.put( 'http://localhost:3000/api/posts/archivePost/' + id);
+    }
 
-  removearchivePost(postId: string) {
-    return this.http
-      .delete('http://localhost:3000/api/posts/archives/' + postId);
-  }
+    removearchivePost(postId: string) {
+        return this.http
+            .delete('http://localhost:3000/api/posts/archives/' + postId);
+    }
 
-  getarchivePosts(postsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`; // `` backtips are for dynamically adding values into strings
-    this.http
-      .get<{message: string, posts: any,  username: string, maxPosts: number}>(
-        'http://localhost:3000/api/posts/archives' + queryParams
-      )
-      .pipe(map((postData) => {
-        return { posts: postData.posts.map(post => {
-            return {
-              profileimg: post.profileimg,
-              title: post.title,
-              content: post.content,
-              id: post._id,
-              username : post.username,
-              creator: post.creator,
-              likes: post.likes,
-              category: post.category,
-              commentsNo: post.commentsNo,
-              comments: post.comments,
-              dislikes: post.dislikes,
-              createdAt: post.createdAt,
-              imagePath: post.imagePath
-            };
-          }), maxPosts: postData.maxPosts  };
-      }))// change rterieving data
-      .subscribe(transformedPostData => {
-        this.posts = transformedPostData.posts;
-        this.postsUpdated.next({
-            posts: [...this.posts],
-            postCount: transformedPostData.maxPosts
-          }
-        );
-      }); // subscribe is to liosten
+    getarchivePosts() {
+      this.http
+            .get<{message: string, posts: any,  username: string, maxPosts: number}>(
+                'http://localhost:3000/api/posts/archives'
+            )
+            .pipe(map((postData) => {
+                return { posts: postData.posts.map(post => {
+                        return {
+                            profileimg: post.profileimg,
+                            title: post.title,
+                            content: post.content,
+                            id: post._id,
+                            username : post.username,
+                            creator: post.creator,
+                            likes: post.likes,
+                            likedBy: post.likedBy,
+                            dislikedBy: post.dislikedBy,
+                            category: post.category,
+                            commentsNo: post.commentsNo,
+                            comments: post.comments,
+                            dislikes: post.dislikes,
+                            createdAt: post.createdAt,
+                            imagePath: post.imagePath
+                        };
+                    }), maxPosts: postData.maxPosts  };
+            }))// change rterieving data
+            .subscribe(transformedPostData => {
+                this.archivedposts = transformedPostData.posts;
+                this.archivedpostsUpdated.next({
+                        posts: [...this.archivedposts],
+                        postCount: transformedPostData.maxPosts
+                    }
+                );
+            }); // subscribe is to liosten
 
-  }
+    }
+    getarchivePostUpdateListener() {
+        return this.archivedpostsUpdated.asObservable();
+    }
 }
