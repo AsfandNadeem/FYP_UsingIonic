@@ -4,6 +4,7 @@ import {AuthServiceService} from '../auth/auth-service.service';
 import {GroupsService} from '../group/groups.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {EventsService} from '../event/events.service';
+import {Post} from '../post/post.model';
 
 export interface Comment {
     id: string;
@@ -19,6 +20,8 @@ export interface Comment {
 export class EventscommentsPage implements OnInit, OnDestroy {
     comments: Comment[] = [];
     commentsSub: Subscription;
+    private postsSub: Subscription;
+    posts: Post[] = [];
     message: string;
     public userId: string;
     authStatusSub: Subscription;
@@ -82,6 +85,7 @@ export class EventscommentsPage implements OnInit, OnDestroy {
             .subscribe(() => {
                 this.message = '';
                 this.getComments();
+                this.eventService.getPosts(this.eventid);
             });
         // console.log(id + '\n' + form.value.comment);
         // if (form.invalid) {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {AuthServiceService} from '../auth/auth-service.service';
@@ -11,6 +11,7 @@ import io from 'socket.io-client';
   styleUrls: ['./chatpage.page.scss'],
 })
 export class ChatpagePage implements OnInit, AfterViewInit {
+    @ViewChild('content') private content: any;
     messagesArray = [];
     receiverId: string;
     user: any;
@@ -29,6 +30,7 @@ export class ChatpagePage implements OnInit, AfterViewInit {
   }
 
     ngOnInit() {
+      this.scrollToBottomOnInit();
         this.userIsAuthenticated = this.authService.getIsAuth();
         this.authStatusSub = this.authService
             .getAuthStatusListener()
@@ -42,6 +44,7 @@ export class ChatpagePage implements OnInit, AfterViewInit {
                 this.receiverId = paramMap.get('userId');
                 console.log(this.receiverId);
                 this.GetAllMessages(this.receiverId);
+                this.scrollToBottomOnInit();
 
             }
         });
@@ -82,6 +85,7 @@ export class ChatpagePage implements OnInit, AfterViewInit {
         };
 
         this.socket.emit('join chat', params);
+        this.scrollToBottomOnInit();
     }
 
     IsTyping() {
@@ -124,6 +128,13 @@ export class ChatpagePage implements OnInit, AfterViewInit {
                 this.receivername = data.usernamechat;
                 console.log(this.receivername);
             });
+        this.scrollToBottomOnInit();
+    }
+
+    scrollToBottomOnInit() {
+        setTimeout(() => {
+            this.content.scrollToBottom(300);
+        }, 200);
     }
 
 }

@@ -4,6 +4,7 @@ import {AuthServiceService} from '../auth/auth-service.service';
 import {PostsService} from '../post/posts.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {GroupsService} from '../group/groups.service';
+import {Post} from '../post/post.model';
 export interface Comment {
     id: string;
     comment: string;
@@ -18,6 +19,8 @@ export interface Comment {
 export class GroupcommentsPage implements OnInit, OnDestroy {
     comments: Comment[] = [];
     commentsSub: Subscription;
+    private postsSub: Subscription;
+    posts: Post[] = [];
     message: string;
     public userId: string;
     authStatusSub: Subscription;
@@ -81,6 +84,7 @@ export class GroupcommentsPage implements OnInit, OnDestroy {
             .subscribe(() => {
                 this.message = '';
                 this.getComments();
+                this.groupService.getPosts(this.groupid);
             });
         // console.log(id + '\n' + form.value.comment);
         // if (form.invalid) {

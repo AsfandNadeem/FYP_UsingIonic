@@ -20,6 +20,8 @@ export interface Comment {
 export class CommentsPage implements OnInit {
 comments: Comment[] = [];
 commentsSub: Subscription;
+    private postsSub: Subscription;
+    posts: Post[] = [];
     message: string;
 public userId: string;
 authStatusSub: Subscription;
@@ -76,6 +78,7 @@ authStatusSub: Subscription;
            .subscribe(() => {
                 this.message = '';
                this.getComments();
+               this.postService.getPosts();
            });
         // console.log(id + '\n' + form.value.comment);
         // if (form.invalid) {

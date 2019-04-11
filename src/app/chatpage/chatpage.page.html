@@ -3,7 +3,7 @@
     <ion-title >Chat: {{receivername}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content style="width: 100% !important;">
+<ion-content  #content style="width: 100% !important;">
 <ion-grid>
 <ion-row class="mainrow">
   <ion-col align-self-center size-md="12" size-lg="12" size-xs="12">
@@ -34,7 +34,7 @@
             <!--ngx-auto-scroll lock-y-offset="10" observe-attributes-->
             <ion-row>
               <ion-col align-self-center size-md="12" size-lg="12" size-xs="12">
-                <div class="message-wrapper" *ngFor="let message of messagesArray"  >
+                <div class="chatList message-wrapper" *ngFor="let message of messagesArray"  >
                   <div class="left" *ngIf="message.senderId != userId">
                     <div class="chat-bubble left slide-left">
                       <div class="message"> {{message.body}}</div>
