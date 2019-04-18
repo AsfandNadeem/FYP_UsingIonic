@@ -17,6 +17,8 @@ export class UserpagePage implements OnInit, OnDestroy {
     totalPosts = 0;
     postsPerPage = 5;
     currentPage = 1;
+    friends = [];
+    requests = [];
     username: string;
     userId: string;
     ownid: string;
@@ -49,12 +51,14 @@ export class UserpagePage implements OnInit, OnDestroy {
         this.profileimg = localStorage.getItem('profileimg');
         this.username =  localStorage.getItem('username');
         this.postsSub = this.postsService.getuserPostUpdateListener()
-            .subscribe((postData: { posts: Post[], usern: string, postCount: number}) => {
+            .subscribe((postData: { posts: Post[], usern: string, friends: any, requests: any, postCount: number}) => {
                 this.isLoading = false;
                 this.totalPosts = postData.postCount;
                 // this.username = this.authService.getName();
                 this.usern = postData.usern,
-                this.posts = postData.posts;
+                    this.posts = postData.posts;
+                this.friends = postData.friends;
+                this.requests = postData.requests;
                 console.log(this.posts);
             });
         this.userIsAuthenticated = this.authService.getIsAuth();

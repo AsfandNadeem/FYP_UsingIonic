@@ -3,7 +3,7 @@ import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
-
+const BASEUURL = 'http://localhost:3000';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +28,7 @@ export class AuthServiceService {
         userData.append( 'department', department);
         userData.append('registration', registration);
         console.log(userData);
-        this.http.post('http://localhost:3000/api/user/signup', userData)
+        this.http.post(`${BASEUURL}/api/user/signup`, userData)
             .subscribe(response => {
                 console.log(response);
                 this.router.navigate(['/login']);
@@ -42,7 +42,7 @@ export class AuthServiceService {
     login(email: string, password: string) {
         // const authData: AuthData = {email: email, password: password};
         this.http.post<{token: string, expiresIn: number, userId: string, username: string, department: string, profileimg: string}>(
-            'http://localhost:3000/api/user/login',
+            `${BASEUURL}/api/user/login`,
             {email, password})
             .subscribe( response => {
                 const token = response.token;

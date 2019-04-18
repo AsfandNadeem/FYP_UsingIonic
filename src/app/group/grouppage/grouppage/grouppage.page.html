@@ -1,11 +1,9 @@
 <ion-header>
 <ion-toolbar>
-  <ion-header>
-    <ion-toolbar>
+
       <ion-title>{{groupname}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-toolbar>
+
+ </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -25,6 +23,7 @@
       <p>{{groupdescription}}</p>
       <!--<strong>Date: </strong>{{ eventdate | date:'MMM dd, yyyy' }}-->
     </ion-card-content>
+    <ion-button *ngIf="userId != groupcreatorid" color="primary" (click)="leaveGroup(userId)">Leave Group</ion-button>
     <ion-item-divider></ion-item-divider>
     <p style="padding-top: 8px;"> admin: {{groupcreator}}</p>
   </ion-card>

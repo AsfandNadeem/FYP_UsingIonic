@@ -8,6 +8,15 @@
   <ion-card >
     <ion-card-header>
       <ion-list style="list-style: none; display: flex;">
+        <ion-item *ngIf="userid != ownid && !friends.includes(ownid) && !requests.includes(ownid)">
+          <!--<ion-button mat-raised-button color="primary" (click)="addFriend(userid)"> Add Friend</ion-button>-->
+        </ion-item>
+        <ion-item *ngIf="userid != ownid && requests.includes(ownid) && !friends.includes(ownid)">
+          <label>Request sent !</label>
+        </ion-item>
+        <ion-item *ngIf="userid != ownid && friends.includes(ownid) && !requests.includes(ownid) ">
+          <label style="color: green; font-weight: bold;">Friends</label>
+        </ion-item>
         <ion-item lines="none" *ngIf="userid != ownid">
           <a style="text-decoration: none; color: grey ;" [routerLink]="['/chatpage', userid]">
             <strong>Chat</strong>

@@ -68,4 +68,15 @@ export class GroupPage implements OnInit, OnDestroy {
         this.authStatusSub.unsubscribe();
     }
 
+
+    // onEditGroup(form: NgForm) {
+    //     // name: string, description: string, eventdate: Date
+    //     if (form.invalid) {
+    //         return;
+    //     }
+    //     this.groupsService.updateGroup(this.groupid, form.value.groupname, form.value.description).
+    //     subscribe(() => {
+    //         this.groupsService.getPosts(this.groupid);
+    //     });
+
 }

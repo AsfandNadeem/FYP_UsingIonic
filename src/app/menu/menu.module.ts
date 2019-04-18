@@ -13,21 +13,22 @@ const routes: Routes = [
     component: MenuPage,
       children: [
           {
-            path: 'post',
+            path: 'Posts',
               loadChildren: '../post/post.module#PostPageModule'
           },
           {
-              path: 'group',
+              path: 'Groups',
               loadChildren: '../group/group.module#GroupPageModule'
           },
           {
-              path: 'event',
+              path: 'Events',
               loadChildren: '../event/event.module#EventPageModule'
           },
           {
-              path: 'archivespage',
-              loadChildren: './post/archivespage/archivespage.module#ArchivespagePageModule'
+              path: 'Archives',
+              loadChildren: '../post/archivespage/archivespage.module#ArchivespagePageModule'
           }
+
           // {
           //     path: 'eventpage/:eventId',
           //     loadChildren:  './event/eventpage/eventpage/eventpage.module#EventpagePageModule'
@@ -36,7 +37,7 @@ const routes: Routes = [
   },
     {
       path: '',
-        redirectTo: '/menu/post'
+        redirectTo: '/menu/Posts'
     }
 ];
 

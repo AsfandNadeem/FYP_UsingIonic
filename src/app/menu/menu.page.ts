@@ -12,25 +12,26 @@ export class MenuPage implements OnInit {
     pages = [
         {
             title: 'Posts',
-            url: '/menu/menu/post'
+            url: '/menu/menu/Posts'
         },
         {
             title: 'Groups',
-            url: '/menu/menu/group'
+            url: '/menu/menu/Groups'
         },
         {
             title: 'Events',
-            url: '/menu/menu/event'
+            url: '/menu/menu/Events'
         },
         {
             title: 'Archives',
-            url: '/menu/menu/archivespage'
+            url: '/menu/menu/Archives'
         }
     ];
 
     selectedPath = '';
     profileimg: string;
     username = '';
+    title = '';
 
     constructor(private router: Router, private authService: AuthServiceService) {
         this.router.events.subscribe((event: RouterEvent) => {
@@ -41,7 +42,7 @@ export class MenuPage implements OnInit {
   ngOnInit() {
         this.profileimg = localStorage.getItem('profileimg');
         this.username = localStorage.getItem('username');
-      this.router.navigate(['/menu/menu/post']);
+      this.router.navigate(['/menu/menu/Posts']);
   }
 
   logout() {

@@ -20,6 +20,7 @@ export class GrouppagePage implements OnInit {
     groupname: string;
     groupdescription: string;
     groupcreator: string;
+    groupcreatorid: string;
     private userId: string;
     private username: string;
    public isLoading: false;
@@ -40,7 +41,7 @@ export class GrouppagePage implements OnInit {
       this.userId = this.authService.getUserId();
       // this.username = this.authService.getName();
       this.postsSub = this.groupsService.getPostUpdateListener()
-          .subscribe((postData: { groupmembers: any, groupname: any,
+          .subscribe((postData: {  groupcreatorid: any, groupmembers: any, groupname: any,
               description: string, groupcreator: string, grouprequests: any, posts: Post[]}) => {
               this.isLoading = false;
               //     this.totalGroups = groupData.groupCount;
@@ -49,7 +50,7 @@ export class GrouppagePage implements OnInit {
               // this.groupMembers = postData.groupmembers;
               // this.groupRequests = postData.grouprequests;
               this.groupname = postData.groupname,
-                  // this.eventdate = postData.eventdate,
+                  this.groupcreatorid = postData.groupcreatorid,
                   this.groupdescription = postData.description,
                   this.groupcreator = postData.groupcreator,
                   console.log(this.posts);
@@ -111,5 +112,10 @@ export class GrouppagePage implements OnInit {
                 this.groupsService.getPosts(this.groupid);
             });
         }
+    }
+
+    leaveGroup(id: string) {
+        console.log(id);
+        this.groupsService.leaveGroup(id, this.groupid);
     }
 }
