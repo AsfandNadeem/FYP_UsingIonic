@@ -1,20 +1,21 @@
-<!--<ion-header>-->
-  <!--<ion-toolbar>-->
-    <!--<ion-title>Register</ion-title>-->
-  <!--</ion-toolbar>-->
-<!--</ion-header>-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<!--<ion-content padding>-->
+<ion-content padding>
 
   <!--<form [formGroup]="nform" >-->
     <!--<div>-->
       <!--<button mat-stroked-button type="button" (click)="filepicker.click()" >Add Image</button>-->
       <!--<input type="file" #filepicker (change)="onImagePicked($event)">-->
     <!--</div>-->
-    <!--<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && nform.get('image').valid">-->
-      <!--<img [src]="imagePreview" [alt]="nform.value.title">-->
-    <!--</div>-->
+    <!--&lt;!&ndash;<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && nform.get('image').valid">&ndash;&gt;-->
+      <!--&lt;!&ndash;<img [src]="imagePreview" [alt]="nform.value.title">&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
   <!--</form>-->
+
 
   <!--<form #form="ngForm" (ngSubmit)="login(form)" novalidate>-->
     <!--<ion-item>-->
@@ -33,42 +34,125 @@
     <!--</ion-item>-->
     <!--<button ion-button type="submit" block>Login</button>-->
   <!--</form>-->
+  <form #form="ngForm" (ngSubmit)="onSignup(form)" novalidate>
+    <ion-item>
+    <ion-label>username:</ion-label>
+    <ion-input type="text" required [(ngModel)]="uname"
+               ngModel
+               #unameInput="ngModel"
+               name="uname"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label>Registeration No:</ion-label>
+    <ion-input type="text" required [(ngModel)]="regno"
+               ngModel
+               #regnoInput="ngModel"
+               name="regno"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>email:</ion-label>
+      <ion-input type="email" required [(ngModel)]="email"
+                 ngModel
+                 #emailInput="ngModel"
+                 name="email"></ion-input>
+    </ion-item>
+    <ion-item>
 
-  <!--<ion-button [expand]="block" [color]="secondary" [href]="register" [routerDirection]="forward"></ion-button>-->
-<!--</ion-content>-->
+      <ion-select
+              required
+              [(ngModel)]="dname"
+              ngModel
+              placeholder="Department"
+              #dnameInput = "ngModel"
+              name = "dname">
+
+        <ion-select-option *ngFor="let department of departments" [value]="department">
+          {{department}}
+        </ion-select-option>
+
+      </ion-select>
+    </ion-item>
+    <button ion-button type="submit" block>Register</button>
+  </form>
+
+</ion-content>
 
 
-<!--<ion-grid>-->
-  <!--<ion-row justify-content-center>-->
-    <!--<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">-->
-      <!--<div text-center>-->
-        <!--<h4>Login Form</h4>-->
+<ion-grid>
+  <ion-row justify-content-center>
+    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+      <div text-center>
+        <h4>Sign-Up Form</h4>
+      </div>
+
+      <form #form="ngForm" (ngSubmit)="onSignup(form)" novalidate>
+        <div padding>
+          <ion-row>
+            <ion-col text-center>
+              <ion-button (click)="getImages()">Choose Image</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!-- More Pinterest floating gallery style -->
+              <div class="images">
+                <div class="one-image" *ngFor="let img of imageResponse">
+                  <img #imgprofile src="{{img}}" alt="" srcset="">
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <!--<ion-item>-->
+            <!--&lt;!&ndash;<ion-label>profile picture:</ion-label>&ndash;&gt;-->
+            <!--<ion-input type="file" required [(ngModel)]="image"-->
+                       <!--ngModel-->
+                       <!--#imageInput="ngModel"-->
+                       <!--name="image"> </ion-input>-->
+          <!--</ion-item>-->
+          <ion-item>
+            <ion-label>username:</ion-label>
+            <ion-input type="text" required [(ngModel)]="uname"
+                       ngModel
+                       #unameInput="ngModel"
+                       name="uname"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Registeration No:</ion-label>
+            <ion-input type="text" required [(ngModel)]="regno"
+                       ngModel
+                       #regnoInput="ngModel"
+                       name="regno"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>email:</ion-label>
+            <ion-input type="email" required [(ngModel)]="email"
+                       ngModel
+                       #emailInput="ngModel"
+                       name="email"></ion-input>
+          </ion-item>
+          <ion-item>
+
+            <ion-select
+                    required
+                    [(ngModel)]="dname"
+                    ngModel
+                    placeholder="Department"
+                    #dnameInput = "ngModel"
+                    name = "dname">
+
+              <ion-select-option *ngFor="let department of departments" [value]="department">
+                {{department}}
+              </ion-select-option>
+
+            </ion-select>
+          </ion-item>
+        </div>
+        <ion-button type="submit" size="medium" expand="block">Register</ion-button>
+      </form>
+      <!--<div padding>-->
+      <!--<ion-button size="large" href="/touchid" expand="block">Login</ion-button>-->
       <!--</div>-->
-
-      <!--<form #form="ngForm" (ngSubmit)="login(form)" novalidate>-->
-        <!--<div padding>-->
-          <!--<ion-item>-->
-
-            <!--<ion-input-->
-                    <!--type="email" required [(ngModel)]="email"-->
-                    <!--ngModel-->
-                    <!--#emailInput="ngModel"-->
-                    <!--name="email" [placeholder]="email"></ion-input>-->
-          <!--</ion-item>-->
-
-          <!--<ion-item>-->
-            <!--<ion-input-->
-                    <!--type="password" [(ngModel)]="password"-->
-                    <!--ngModel-->
-                    <!--#passwordInput="ngModel"-->
-                    <!--name="password" [placeholder]="password"></ion-input>-->
-          <!--</ion-item>-->
-        <!--</div>-->
-        <!--<ion-button type="submit" size="large" expand="block">Login</ion-button>-->
-      <!--</form>-->
-      <!--&lt;!&ndash;<div padding>&ndash;&gt;-->
-      <!--&lt;!&ndash;<ion-button size="large" href="/touchid" expand="block">Login</ion-button>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--</ion-col>-->
-  <!--</ion-row>-->
-<!--</ion-grid>-->
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<!--</ion-content>-->

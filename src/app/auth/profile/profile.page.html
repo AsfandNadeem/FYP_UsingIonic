@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{username}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card  >
+    <ion-card-header >
+      <ion-list style="list-style: none; display: flex;">
+        <ion-item lines="none">
+          <ion-avatar>
+          <img
+                  class="example-header-image"
+                  [src]="profileimg" >
+          </ion-avatar>
+        </ion-item>
+        <li>
+          <ion-card-title>Hello {{username}}</ion-card-title>
+          <ion-card-subtitle>Having a Good Day?</ion-card-subtitle>
+        </li>
+      </ion-list>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-list>
+      <ion-item  *ngFor="let profile of profiles">
+        <strong style="white-space: pre;">{{profile.main}}</strong>
+
+        <p>
+          {{profile.value}}
+        </p>
+        <!--<mat-divider *ngIf="profile.main != 'REG NO:                      '"></mat-divider>-->
+        <!--<ion-item-divider *ngIf="i < 3"></ion-item-divider>-->
+      </ion-item>
+
+    </ion-list>
+
+  </ion-card>
+  <br/>
+  <ion-card>
+    <!--<form #form="ngForm" (ngSubmit)="login(form)" novalidate>-->
+      <!--<ion-item>-->
+        <!--<ion-label>email</ion-label>-->
+        <!--<ion-input type="email" required [(ngModel)]="email"-->
+                   <!--ngModel-->
+                   <!--#emailInput="ngModel"-->
+                   <!--name="email"></ion-input>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<ion-label>Password</ion-label>-->
+        <!--<ion-input type="password" [(ngModel)]="password"-->
+                   <!--ngModel-->
+                   <!--#passwordInput="ngModel"-->
+                   <!--name="password"></ion-input>-->
+      <!--</ion-item>-->
+      <!--<button ion-button type="submit" block>Login</button>-->
+    <!--</form>-->
+
+    <form #form="ngForm" (ngSubmit)="onEdit(form)" novalidate>
+      <ion-item>
+      <ion-label>username</ion-label>
+      <ion-input type="text" required [(ngModel)]="username"
+      ngModel
+      #usernameInput="ngModel"
+      name="username"></ion-input>
+      </ion-item>
+      <!--<mat-form-field>-->
+        <!--<input-->
+                <!--matInput-->
+                <!--type="text"-->
+                <!--formControlName="username"-->
+                <!--placeholder="New Username"-->
+        <!--&gt;-->
+        <!--<mat-error *ngIf="form.get('username').invalid">Please enter a username.</mat-error>-->
+      <!--</mat-form-field>-->
+      <ion-item>
+      <ion-label>password</ion-label>
+      <ion-input type="password" required [(ngModel)]="password"
+                 ngModel
+                 #passwordInput="ngModel"
+                 name="password"></ion-input>
+      </ion-item>
+      <!--<mat-form-field>-->
+      <!--<input-->
+      <!--matInput-->
+      <!--type="password"-->
+      <!--formControlName="currentpassword"-->
+      <!--placeholder="Current password"-->
+      <!--&gt;-->
+      <!--<mat-error *ngIf="form.get('currentpassword').invalid">Please enter current password.</mat-error>-->
+      <!--</mat-form-field>-->
+
+      <!--<mat-form-field>-->
+        <!--<input-->
+                <!--matInput-->
+                <!--type="password"-->
+                <!--formControlName="password"-->
+                <!--placeholder="New password"-->
+        <!--&gt;-->
+        <!--<mat-error *ngIf="form.get('password').invalid">Please enter a password.</mat-error>-->
+      <!--</mat-form-field>-->
+
+
+
+      <ion-button type="submit" size="medium" expand="block">Update</ion-button>
+      <!--<button-->
+              <!--mat-raised-button-->
+              <!--color="accent"-->
+              <!--type="submit"-->
+              <!--*ngIf="!isLoading">Edit</button>-->
+
+    </form>
+
+
+  </ion-card>
+</ion-content>

@@ -3,6 +3,7 @@ import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Storage} from '@ionic/storage';
+import {map} from 'rxjs/operators';
 const BASEUURL = 'http://localhost:3000';
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,16 @@ export class AuthServiceService {
     private tokenTimer: any;
     private userId: string;
     private userN: string;
-    private authStatusListener = new Subject<boolean>();
+    private authStatusListener = new Subject<boolean>()
+    private userfetchedUpdated = new Subject<{email: any, usernamefetched: any, departmentfetched: any, registrationofetched: any }>();
   constructor(private http: HttpClient,
               private router: Router) { }
 
-    createUser(email: string, image: File, password: string , username: string, department: string, registration: string ) {
-        // const authData: {email: email, password: password};
+    createUser(email: string, image: File, username: string, department: string, registration: string ) {
+        // const authData: AuthData = {email: email};
         const userData =  new FormData();
         userData.append('email', email);
-        userData.append('password', password);
+        // userData.append('password', password);
         userData.append('username', username);
         userData.append('image', image, email);
         userData.append( 'department', department);
@@ -34,6 +36,7 @@ export class AuthServiceService {
                 this.router.navigate(['/login']);
             });
     }
+
 
     getName() {
         return localStorage.getItem('username');
@@ -152,6 +155,50 @@ export class AuthServiceService {
             expirationDate: new Date(expirationDate),
             userId: userId
         };
+    }
+
+    getProfile() {
+        this.http.get<{email: any,
+            username: any, department: any, registrationo: any}>
+        (`${BASEUURL}/api/user/profile`)
+            .pipe(map((postData) => {
+                return { email: postData.email, usernamefetched: postData.username,
+                    departmentfetched: postData.department, registrationofetched: postData.registrationo};
+            }))
+            .subscribe( transformedGroupPost => {
+                this.userfetchedUpdated.next( {
+                    email: transformedGroupPost.email,
+                    usernamefetched: transformedGroupPost.usernamefetched,
+                    departmentfetched: transformedGroupPost.departmentfetched,
+                    registrationofetched: transformedGroupPost.registrationofetched
+                });
+            });
+    }
+
+    getProfileUpdateListener() {
+        return this.userfetchedUpdated.asObservable();
+    }
+
+    public updateUser(id: string , username: string, password: string) {
+
+
+        console.log(id + '\n' + username + '\n' + password);
+
+
+        const userData = {
+
+            username: username,
+            password: password
+        };
+        console.log(userData);
+        this.http.put<{userId: string, username: string}>
+        (`${BASEUURL}/api/user/edit/`, userData)
+            .subscribe(response => {
+                console.log(response);
+                localStorage.removeItem('username');
+                localStorage.setItem('username', response.username);
+                this.router.navigate(['/menu/menu']);
+            });
     }
 
 
